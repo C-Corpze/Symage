@@ -23,16 +23,7 @@ internal class Program
         int number = 1234567890;
 
 
-        byte get_byte(int val, Int16 pos = 0)
-        {
-            // Return first byte if no position is specified.
-            if (pos == 0) return (byte)(val & 0xff);
-
-
-            int new_val = val >> (pos * 8);
-
-            return (byte) (new_val & 0xff);
-        }
+        
 
 
         byte b1 = (byte)(number & 0xff);
