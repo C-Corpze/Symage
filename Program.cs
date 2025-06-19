@@ -1,46 +1,32 @@
 ﻿
 
-
-
 namespace Symage;
-
-
-
 
 internal class Program
 {
+	static void Main(string[] args)
+	{
+		//Console.WriteLine("Hit enter to start.");
+
+		//var input = Console.ReadLine();
+
+		//Console.WriteLine($"You entered: {input}");
 
 
-    static void Main(string[] args)
-    {
-        //Console.WriteLine("Hit enter to start.");
+		int number = 1234567890;
 
-        //var input = Console.ReadLine();
+		byte b1 = (byte)(number & 0xff);
 
-        //Console.WriteLine($"You entered: {input}");
+		byte b2 = (byte)((number >> 8) & 0xff);
 
+		byte b3 = (byte)((number >> 16) & 0xff);
 
-        int number = 1234567890;
-
-
-        
+		byte b4 = (byte)((number >> 24) & 0xff);
 
 
-        byte b1 = (byte)(number & 0xff);
-
-        byte b2 = (byte)((number >> 8) & 0xff);
-
-        byte b3 = (byte)((number >> 16) & 0xff);
-
-        byte b4 = (byte)((number >> 24) & 0xff);
-    
-        
-
-        Console.WriteLine($"The byte representation of {number} is: {b1} - {b2} - {b3} - {b4}");
+		Console.WriteLine($"The byte representation of {number} is: {b1} - {b2} - {b3} - {b4}");
 
 
-    }
-
-
+	}
 
 }

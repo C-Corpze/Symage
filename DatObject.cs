@@ -6,36 +6,28 @@ using System.Threading.Tasks;
 
 
 
-
-
-
-
 namespace Symage
 {
-    public class DatObject
-    {
+	public class DatObject
+	{
 
-        List<byte> Bytes = new List<byte>();
-
-
-        void clearByteList()
-        {
-            Bytes.Clear();
-        }
+		List<byte> Bytes = new List<byte>();
 
 
-        void addByte(byte num)
-        {
-            Bytes.Add(num);
-        }
+		void clearByteList()
+		{
+			Bytes.Clear();
+		}
 
+		void addByte(byte num)
+		{
+			Bytes.Add(num);
+		}
 
-        void add16Bit(ushort num)
-        {
+		void add16Bit(ushort num)
+		{
 
-        }
+		}
 
-        
-
-    }
+	}
 }
