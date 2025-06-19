@@ -23,7 +23,9 @@ namespace Symage
 
         public static int make_int(byte b1, byte b2, byte b3, byte b4)
         {
-            return (int)( (b1 << 24) | (b2 << 16) | (b3 << 8) | b4 );
+            return (int)(
+                    (b1 << 24) | (b2 << 16) | (b3 << 8) | b4
+                );
         }
 
 
