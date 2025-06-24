@@ -6,17 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Symage
 {
 	public static class BitConv
 	{
 
-		// Returns a byte from a 32-bit integer.
+		// Returns a byte from a 32-bit integer, from right to left.
+		// Bytes are usually in little-endian order.
 		public static byte get_byte(int val, ushort pos = 0)
 		{
 			// Return first byte if no position is specified.
-			if (pos == 0 || pos > 3)
-				return (byte)(val & 0xff);
+			if (pos < 1) return (byte)(val & 0xff);
 
 			int new_val = val >> (pos * 8); // Bit shift the thingus to get the desired byte.
 
