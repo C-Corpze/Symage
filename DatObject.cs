@@ -17,16 +17,10 @@ namespace Symage
 		List<byte> bytelist = new List<byte>();
 
 
-		void clearByteList()
-		{
-			bytelist.Clear();
-		}
+		void clearByteList() { bytelist.Clear(); }
 
 		// Adds a single byte to the list.
-		void addByte(byte num)
-		{
-			bytelist.Add(num);
-		}
+		void addByte(byte num) { bytelist.Add(num); }
 
 		// Splits a 16-bit integer into 2 bytes and adds them to the list.
 		void add16Bit(ushort num)

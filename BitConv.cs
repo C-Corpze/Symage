@@ -1,4 +1,5 @@
-﻿// Simple class for extracting, combining and manipulating bits in a fast and efficient manner.
+﻿
+// Simple class for extracting, combining and manipulating bits in a fast and efficient manner.
 
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,9 @@ namespace Symage
 
 		// Returns a byte from a 32-bit integer, from right to left.
 		// Bytes are usually in little-endian order.
-		public static byte get_byte(int val, ushort pos = 0)
+		public static byte get_byte(int val, int pos = 0)
 		{
-			// Return first byte if no position is specified.
-			if (pos < 1) return (byte)(val & 0xff);
+			if (pos < 1) return (byte)(val & 0xff); // Return first byte if no position is specified.
 
 			int new_val = val >> (pos * 8); // Bit shift the thingus to get the desired byte.
 
@@ -25,7 +25,7 @@ namespace Symage
 		}
 
 
-		// Combines bytes into a 32-bit integer, for 24 bit just don't use the last byte.
+		// Combines bytes into a 32-bit integer, for 24 bit just don't use the last byte. Lmao
 		public static int make_int32(byte b1, byte b2, byte b3, byte b4 = 0x00)
 		{
 			return (int)(
