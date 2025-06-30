@@ -1,11 +1,6 @@
 ﻿using Symage;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
 
 
 
@@ -17,23 +12,24 @@ namespace Symage
 
 		//List<byte> bytelist = new List<byte>();
 
-		byte[] byte_array;
+		public byte[] byte_array;
 
-		int index = 0;
+		public int index = 0;
 
 
-
-		public DatObject(int asize = 10)
+		// Constructor function.
+		public DatObject(uint asize = 10)
 		{
-			// Constructor, initializes the byte array with a default size of 5.
 			byte_array = new byte[asize];
+			index = 0;
 		}
 
 
 		// This just initializes an byte array, you must know the size beforehand.
-		public void initArray(int asize)
+		public void initArray(uint asize)
 		{
 			byte_array = new byte[asize];
+			index = 0;
 		}
 
 
@@ -41,7 +37,7 @@ namespace Symage
 		public void addByte(byte b)
 		{
 			// Dead-simple measure to prevent ever going outta bounds.
-			if ( index > byte_array.Length ) { index = 0; }
+			if (index > byte_array.Length) { index = 0; }
 
 			byte_array[index] = b; // Add one byte at a time and move the index.
 			index++;
@@ -54,6 +50,14 @@ namespace Symage
 			addByte(BitConv.get_byte(num, 0)); // Add the second byte.
 		}
 
+		public void add16Bit(ushort num) // Overload of the above function.
+		{
+			addByte(BitConv.get_byte(num, 1)); // Add the first byte.
+			addByte(BitConv.get_byte(num, 0)); // Add the second byte.
+		}
+
+
+
 		// Splits an integer into 4 bytes and adds them to the list.
 		public void add32Bit(int num)
 		{
@@ -64,6 +68,7 @@ namespace Symage
 		}
 
 
+
 		// Splits an integer into 3 bytes and adds them to the list.
 		// C# however doesn't really have 24-bit numbers so it just discards the 4th byte.
 		// (Dunno if I'll use this.)
@@ -72,10 +77,10 @@ namespace Symage
 			addByte(BitConv.get_byte(num, 2)); // Add the first byte.
 			addByte(BitConv.get_byte(num, 1)); // Add the second byte.
 			addByte(BitConv.get_byte(num, 0)); // Add the third byte.
-												// The fourth byte is yeeted lol.
+											   // The fourth byte is yeeted lol.
 		}
 
-		
+
 
 	}
 }
