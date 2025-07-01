@@ -51,10 +51,7 @@ internal class Program
 			}
 		}
 
-		for ( int i = 0; i < dat_object.byte_array.Length; i++ )
-		{
-			Console.WriteLine($"Byte: {dat_object.byte_array[i]}");
-		}
+		dat_object.printState();
 
 
 	}
