@@ -35,11 +35,11 @@ namespace Symage
 		// This will add one (1) byte into the array, or rather overwrites one.
 		public void addByte(byte b)
 		{
-			// Dead-simple measure to prevent ever going outta bounds.
-			if (index > byte_array.Length) { index = 0; }
-
 			byte_array[index] = b; // Add one byte at a time and move the index.
 			index++;
+
+			// Dead-simple measure to prevent ever going outta bounds.
+			if (index >= byte_array.Length) { index = 0; }
 		}
 
 		// Splits an 16-bit integer into 2 bytes and adds them to the array.
@@ -59,11 +59,27 @@ namespace Symage
 		}
 
 
+		public byte getByte()
+		{
+			byte selected = byte_array[index];
+
+			index++;
+			if (index >= byte_array.Length) index = 0;
+
+			return selected;
+		}
+
+
 		public int get32Bit(uint position)
 		{
-
+			return BitConv.make_int32(
+				getByte(),
+				getByte(),
+				getByte(),
+				getByte()
+			);
 		}
-		
+
 
 
 		// This is mostly for debugging and checking values.
