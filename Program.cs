@@ -22,7 +22,7 @@ internal class Program
 		MagickImage image = new MagickImage("D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\testimg.webp");
 		Console.WriteLine($"Image width: {image.Width}, height: {image.Height}");
 
-		DatObject dat_object = ImgClass.decodeImage32Bit(image);
+		DatObject dat_object = ImgClass.decodeImage24Bit(image);
 
 
 		WaveFileWriter wave_writer = new WaveFileWriter(
