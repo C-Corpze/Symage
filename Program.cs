@@ -25,12 +25,15 @@ internal class Program
 		DatObject dat_object = ImgClass.decodeImage24Bit(image);
 
 
-		WaveFileWriter wave_writer = new WaveFileWriter(
-			"D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\test.wav",
-			new WaveFormat(44100, 32, 1)
-		);
+		using (WaveFileWriter wave_writer = new WaveFileWriter(
+				"D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\test.wav",
+				new WaveFormat(44100, 32, 1)
+		))
+		{
+			wave_writer.Write(dat_object.byte_array, 0, dat_object.byte_array.Length);
+		}
 
-		wave_writer.Write(dat_object.byte_array, 0, dat_object.byte_array.Length);
+		
 
 
 	}
