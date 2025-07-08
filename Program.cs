@@ -11,6 +11,12 @@ internal class Program
 {
 	static void Main(string[] args)
 	{
+		// Create dem directories, they probably won't exist yet at the first run.
+		DirMan.createDirInApp("_images");
+		DirMan.createDirInApp("_audio");
+		DirMan.createDirInApp("_output");
+
+
 		Console.WriteLine("Hit enter to start.");
 		var input = Console.ReadLine();
 		//Console.WriteLine($"You entered: {input}");
