@@ -76,5 +76,22 @@ namespace Symage
 		}
 
 
+
+		// ENcodes a image, receives a DatObject as input.
+		public static void bitClap24Bit(DatObject dat_object, int res_y = 512)
+		{
+			// Get the remainder of the array length divided by the height.
+			int remainder = dat_object.byte_array.Length % res_y;
+
+			// Calculate the width of the image based on the height and the remainder.
+			int res_x = (dat_object.byte_array.Length + remainder) / res_y;
+
+
+			using (MagickImage image = new MagickImage(MagickColors.Black, res_x, res_y))
+			{ 
+
+			}
+
+		}
 	}
 }

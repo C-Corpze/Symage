@@ -11,6 +11,8 @@ internal class Program
 {
 	static void Main(string[] args)
 	{
+		string debug_dir = "D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\";
+
 		// Create dem directories, they probably won't exist yet at the first run.
 		DirMan.createDirInApp("_images");
 		DirMan.createDirInApp("_audio");
@@ -25,14 +27,14 @@ internal class Program
 
 
 
-		MagickImage image = new MagickImage("D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\testimg.webp");
+		MagickImage image = new MagickImage(debug_dir + "testimg.webp");
 		Console.WriteLine($"Image width: {image.Width}, height: {image.Height}");
 
 		DatObject dat_object = ImgClass.decodeImage24Bit(image);
 
 
 		using (WaveFileWriter wave_writer = new WaveFileWriter(
-				"D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\test.wav",
+				debug_dir + "test.wav",
 				new WaveFormat(44100, 32, 1)
 		))
 		{
