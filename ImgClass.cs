@@ -3,6 +3,7 @@ using NAudio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
@@ -77,23 +78,53 @@ namespace Symage
 
 
 
-		// ENcodes a image, receives a DatObject as input.
-		public static void bitClap24Bit(DatObject dat_object, int res_y = 512)
+		// Encodes a image, receives a DatObject as input.
+		public static void bitClap24Bit(DatObject dat_object, int res_y = 512, string file_path)
 		{
+			int length = dat_object.byte_array.Length; // Length of the byte array.
+
+			// Length of the byte array, rounded up by an increment of 3 bytes.
+			// Necessary to accurately calculate the X resolution.
+			int sample_count = length + (length % 3);
+
 			// Get the remainder of the array length divided by the height.
-			int remainder = dat_object.byte_array.Length % res_y;
+			int remainder = sample_count % res_y;
 
 			// Calculate the width of the image based on the height and the remainder.
-			int res_x = (dat_object.byte_array.Length + remainder) / res_y;
+			int res_x = (sample_count + remainder) / res_y;
 
 
 
 			MagickImage image = new MagickImage(
-				new byte[] { 0, 0, 0, 0 }, // RGBA values as a byte array.
+				new byte[] { 0, 0, 0 }, // RGBA values as a byte array.
 				(uint) res_x,
 				(uint) res_y
 			);
-			
+			Console.WriteLine($"Calculated image width: {image.Width}, height: {image.Height}.");
+
+
+
+			using (IPixelCollection<byte> pixel_collection = image.GetPixels())
+			{
+
+				for (int x = 0; x < length; x++)
+				{
+					for (int y = 0; y < length; y++)
+					{
+						IPixel<byte> pixel = pixel_collection.GetPixel(x, y);
+
+						pixel.SetChannel(0, dat_object.getByte()); // Red.
+						pixel.SetChannel(1, dat_object.getByte()); // Green.
+						pixel.SetChannel(2, dat_object.getByte()); // Blue.
+					}
+				}
+
+				Console.WriteLine($"Written bytes to pixels.");
+			}
+
+
+			image.Write(file_path); // Write the image to the specified file path.
+			Console.WriteLine($"Image outputted into {file_path}.");
 
 		}
 	}
