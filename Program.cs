@@ -3,6 +3,7 @@
 using ImageMagick;
 using NAudio;
 using NAudio.Wave;
+using System.Text.RegularExpressions;
 
 namespace Symage;
 
@@ -27,6 +28,8 @@ internal class Program
 
 
 
+
+
 		MagickImage image = new MagickImage(debug_dir + "testimg.webp");
 		Console.WriteLine($"Image width: {image.Width}, height: {image.Height}");
 
@@ -41,7 +44,7 @@ internal class Program
 			wave_writer.Write(dat_object.byte_array, 0, dat_object.byte_array.Length);
 		}
 
-		
+
 
 
 	}

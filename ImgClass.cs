@@ -87,10 +87,13 @@ namespace Symage
 			int res_x = (dat_object.byte_array.Length + remainder) / res_y;
 
 
-			using (MagickImage image = new MagickImage(MagickColors.Black, res_x, res_y))
-			{ 
 
-			}
+			MagickImage image = new MagickImage(
+				new byte[] { 0, 0, 0, 0 }, // RGBA values as a byte array.
+				(uint) res_x,
+				(uint) res_y
+			);
+			
 
 		}
 	}
