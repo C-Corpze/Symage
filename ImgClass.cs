@@ -14,7 +14,7 @@ namespace Symage
 	{
 
 		// Decode a image (with alpha channel) into a data object.
-		public static DatObject decodeImage32Bit(MagickImage image)
+		public static DatObject bitClap32Bit(MagickImage image)
 		{
 			// Initialize the data object to hold the image's data.
 			DatObject dat_object = new DatObject(image.Width * image.Height * 4);
@@ -47,7 +47,7 @@ namespace Symage
 
 
 		// Decode a image (without alpha channel) into a data object.
-		public static DatObject decodeImage24Bit(MagickImage image)
+		public static DatObject bitClap24Bit(MagickImage image)
 		{
 			// Initialize the data object to hold the image's data.
 			DatObject dat_object = new DatObject(image.Width * image.Height * 3);
@@ -79,7 +79,7 @@ namespace Symage
 
 
 		// Encodes a image, receives a DatObject as input.
-		public static void bitClap24Bit(DatObject dat_object, int res_y = 512, string file_path)
+		public static void bitCirc24Bit(DatObject dat_object, string file_path, int res_y = 512)
 		{
 			int length = dat_object.byte_array.Length; // Length of the byte array.
 

@@ -33,7 +33,7 @@ internal class Program
 		MagickImage image = new MagickImage(debug_dir + "testimg.webp");
 		Console.WriteLine($"Image width: {image.Width}, height: {image.Height}");
 
-		DatObject dat_object = ImgClass.decodeImage24Bit(image);
+		DatObject dat_object = ImgClass.bitClap24Bit(image);
 
 
 		using (WaveFileWriter wave_writer = new WaveFileWriter(
