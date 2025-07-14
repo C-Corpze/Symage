@@ -37,7 +37,7 @@ internal class Program
 
 
 		using (WaveFileWriter wave_writer = new WaveFileWriter(
-				debug_dir + "test.wav",
+				debug_dir + "test.wav", // Location and name of file.
 				new WaveFormat(44100, 32, 1)
 		))
 		{
