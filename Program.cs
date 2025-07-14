@@ -46,6 +46,21 @@ internal class Program
 
 
 
+		// Now we convert a audio to an image.
+
+		using (WaveFileReader wave_reader = new WaveFileReader(debug_dir + "test.wav"))
+		{
+			DatObject audio_dat_object = new DatObject( (uint) wave_reader.Length);
+
+			ISampleProvider sample_provider = wave_reader.ToSampleProvider();
+			float[] buffer = new float[wave_reader.Length / 4]; // Buffer for reading samples.
+
+			sample_provider.Read(buffer, 0, buffer.Length);
+
+
+			ImgClass.bitCirc24Bit(audio_dat_object, debug_dir + "testimg2.webp", 512);
+		}
+
 
 	}
 
