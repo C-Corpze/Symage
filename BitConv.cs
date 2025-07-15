@@ -1,5 +1,8 @@
 ﻿// Simple class for extracting, combining and manipulating bits in a fast and efficient manner.
 
+
+
+
 namespace Symage
 {
 	public static class BitConv
@@ -43,6 +46,13 @@ namespace Symage
 		}
 
 
+		public static float makeFloat( byte b1, byte b2, byte b3, byte b4 = 0x00 )
+		{
+			return BitConverter.Int32BitsToSingle(
+				( b1 << 24 ) | ( b2 << 16 ) | ( b3 << 8 ) | b4
+			);
+		}
+
 
 		// Combine 2 bytes into an 16-bit integer.
 		public static short makeInt16( byte b1, byte b2 )
@@ -54,6 +64,18 @@ namespace Symage
 		{
 			return (ushort) ( ( b1 << 8 ) | b2 );
 		}
+
+
+		public static int floatToInt( float x )
+		{
+			return BitConverter.SingleToInt32Bits( x ); // Converts a float to 32-bit integer.
+		}
+
+		public static uint floatToUInt( float x )
+		{
+			return BitConverter.SingleToUInt32Bits( x ); // Converts a float to 32-bit unsigned integer.
+		}
+
 
 
 	}
