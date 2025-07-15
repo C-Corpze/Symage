@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Symage
 {
 	// Wahoo, the data object.
-	public class DatObject
+	public class SampleDataObject
 	{
 
 		//List<byte> bytelist = new List<byte>();
@@ -17,7 +17,7 @@ namespace Symage
 
 
 		// Constructor function.
-		public DatObject(uint asize = 10)
+		public SampleDataObject(uint asize = 10)
 		{
 			byte_array = new byte[asize];
 			index = 0;
@@ -45,17 +45,17 @@ namespace Symage
 		// Splits an 16-bit integer into 2 bytes and adds them to the array.
 		public void add16Bit(short num)
 		{
-			addByte(BitConv.get_byte(num, 1)); // Add the first byte.
-			addByte(BitConv.get_byte(num, 0)); // Add the second byte.
+			addByte(BitConv.getByte(num, 1)); // Add the first byte.
+			addByte(BitConv.getByte(num, 0)); // Add the second byte.
 		}
 
 		// Splits an integer into 4 bytes and adds them to the list.
 		public void add32Bit(int num)
 		{
-			addByte(BitConv.get_byte(num, 3)); // Add the first byte.
-			addByte(BitConv.get_byte(num, 2)); // Add the second byte.
-			addByte(BitConv.get_byte(num, 1)); // Add the third byte.
-			addByte(BitConv.get_byte(num, 0)); // Add the fourth byte.
+			addByte(BitConv.getByte(num, 3)); // Add the first byte.
+			addByte(BitConv.getByte(num, 2)); // Add the second byte.
+			addByte(BitConv.getByte(num, 1)); // Add the third byte.
+			addByte(BitConv.getByte(num, 0)); // Add the fourth byte.
 		}
 
 
@@ -70,9 +70,18 @@ namespace Symage
 		}
 
 
-		public int get32Bit(uint position)
+		public int getInt16(uint position)
 		{
-			return BitConv.make_int32(
+			return BitConv.makeInt16(
+				getByte(),
+				getByte()
+			);
+		}
+
+
+		public int getInt32(uint position)
+		{
+			return BitConv.makeInt32(
 				getByte(),
 				getByte(),
 				getByte(),

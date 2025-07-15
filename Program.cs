@@ -33,7 +33,7 @@ internal class Program
 		MagickImage image = new MagickImage(debug_dir + "testimg.webp");
 		Console.WriteLine($"Image width: {image.Width}, height: {image.Height}");
 
-		DatObject dat_object = ImgClass.bitClap24Bit(image);
+		SampleDataObject dat_object = ImgClass.bitClap24Bit(image);
 
 
 		using (WaveFileWriter wave_writer = new WaveFileWriter(
@@ -50,7 +50,7 @@ internal class Program
 
 		using (WaveFileReader wave_reader = new WaveFileReader(debug_dir + "test.wav"))
 		{
-			DatObject audio_dat_object = new DatObject( (uint) wave_reader.Length);
+			SampleDataObject audio_dat_object = new SampleDataObject( (uint) wave_reader.Length);
 
 			ISampleProvider sample_provider = wave_reader.ToSampleProvider();
 			float[] buffer = new float[wave_reader.Length / 4]; // Buffer for reading samples.
