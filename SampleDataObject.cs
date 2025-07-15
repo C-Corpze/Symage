@@ -6,16 +6,72 @@
 
 		//List<byte> bytelist = new List<byte>();
 
-		public byte[] byte_array;
+		public byte[] byte_array = new byte[1];
 		public int index = 0;
 
 
 		// Constructor function.
-		public SampleDataObject( uint asize = 10 )
+		public SampleDataObject( uint asize )
 		{
-			byte_array = new byte[ asize ];
-			index = 0;
+			initArray( asize );
 		}
+
+		// Overloads that make it very easy to initialize a byte array from an existing array.
+		public SampleDataObject( float[] arr )
+		{
+			uint len = (uint) lengthOfInBytes( arr );
+			initArray( len );
+
+			for ( uint i = 0; i < arr.Length; i++ )
+			{
+				addFloat( arr[ i ] );
+			}
+		}
+
+		public SampleDataObject( int[] arr )
+		{
+			uint len = (uint) lengthOfInBytes( arr );
+			initArray( len );
+
+			for ( uint i = 0; i < arr.Length; i++ )
+			{
+				addFloat( arr[ i ] );
+			}
+		}
+
+		public SampleDataObject( uint[] arr )
+		{
+			uint len = (uint) lengthOfInBytes( arr );
+			initArray( len );
+
+			for ( uint i = 0; i < arr.Length; i++ )
+			{
+				addFloat( arr[ i ] );
+			}
+		}
+
+		public SampleDataObject( short[] arr )
+		{
+			uint len = (uint) lengthOfInBytes( arr );
+			initArray( len );
+
+			for ( uint i = 0; i < arr.Length; i++ )
+			{
+				addFloat( arr[ i ] );
+			}
+		}
+
+		public SampleDataObject( ushort[] arr )
+		{
+			uint len = (uint) lengthOfInBytes( arr );
+			initArray( len );
+
+			for ( uint i = 0; i < arr.Length; i++ )
+			{
+				addFloat( arr[ i ] );
+			}
+		}
+
 
 
 		// This just initializes an byte array, you must know the size beforehand.
@@ -25,15 +81,45 @@
 			index = 0;
 		}
 
+
+		// Get the length of the array if all bytes were 16-bit numbers.
 		public int length16()
 		{
 			return ( byte_array.Length / 2 ) + ( byte_array.Length % 2 ); // Returns the size of the array in 16-bit integers.
 		}
 
+		// Get the length of the array if all bytes were 32-bit numbers.
 		public int length32()
 		{
 			return ( byte_array.Length / 4 ) + ( byte_array.Length % 4 ); // Returns the size of the array in 32-bit integers.
 		}
+
+		public int lengthOfInBytes( short[] arr )
+		{
+			return arr.Length * 2;
+		}
+
+		public int lengthOfInBytes( ushort[] arr )
+		{
+			return arr.Length * 2;
+		}
+
+		public int lengthOfInBytes( int[] arr )
+		{
+			return arr.Length * 4;
+		}
+
+		public int lengthOfInBytes( uint[] arr )
+		{
+			return arr.Length * 4;
+		}
+
+		public int lengthOfInBytes( float[] arr )
+		{
+			return arr.Length * 4;
+		}
+
+
 
 
 
@@ -46,6 +132,7 @@
 			// Dead-simple measure to prevent ever going outta bounds.
 			if ( index >= byte_array.Length ) { index = 0; }
 		}
+
 
 		// Splits an 16-bit integer into 2 bytes and adds them to the array.
 		public void add16Bit( short num )
@@ -77,6 +164,12 @@
 			addByte( BitConv.getByte( num, 2 ) ); // Add the second byte.
 			addByte( BitConv.getByte( num, 1 ) ); // Add the third byte.
 			addByte( BitConv.getByte( num, 0 ) ); // Add the fourth byte.
+		}
+
+		// Converts the float to an integer and inserts it into the data object.
+		public void addFloat( float num )
+		{
+			add32Bit( BitConverter.SingleToInt32Bits( num ) );
 		}
 
 
@@ -130,6 +223,11 @@
 			);
 		}
 
+		public float getFloat()
+		{
+			return BitConverter.Int32BitsToSingle( getInt32() );
+		}
+
 
 		// Bunch or array getters.
 
@@ -138,7 +236,7 @@
 			int len = length16();
 			ushort[] arr = new ushort[ len ];
 
-			for ( int i = 0; i < len / 2; i++ )
+			for ( int i = 0; i < len; i++ )
 			{
 				arr[ i ] = getUInt16();
 			}
@@ -151,9 +249,23 @@
 			int len = length16();
 			short[] arr = new short[ len ];
 
-			for ( int i = 0; i < len / 2; i++ )
+			for ( int i = 0; i < len; i++ )
 			{
 				arr[ i ] = getInt16();
+			}
+
+			return arr;
+		}
+
+
+		public int[] getInt32Array()
+		{
+			int len = length32();
+			int[] arr = new int[ len ];
+
+			for ( int i = 0; i < len; i++ )
+			{
+				arr[ i ] = getInt32();
 			}
 
 			return arr;

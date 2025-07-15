@@ -48,15 +48,15 @@ internal class Program
 
 		using ( WaveFileReader wave_reader = new WaveFileReader( debug_dir + "test.wav" ) )
 		{
-			SampleDataObject audio_data_object = new SampleDataObject( (uint) wave_reader.Length);
-
 			ISampleProvider sample_provider = wave_reader.ToSampleProvider();
 			float[] buffer = new float[wave_reader.Length / 4]; // Buffer for reading samples.
 
 			sample_provider.Read( buffer, 0, buffer.Length );
 
 
-			ImgClass.bitCirc24Bit( audio_data_object, debug_dir + "testimg2.webp", 512 );
+			SampleDataObject audio_data_object = new SampleDataObject( buffer );
+
+			ImgClass.bitCirc24Bit( audio_data_object, debug_dir + "testimg2.webp", 1920 );
 		}
 
 

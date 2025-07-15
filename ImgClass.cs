@@ -86,12 +86,14 @@ namespace Symage
 			int res_x = (sample_count + remainder) / res_y;
 
 
+			MagickColor color = new MagickColor(0, 0, 0); // Black color for the image background.
 
 			MagickImage image = new MagickImage(
-				new byte[] { 0, 0, 0 }, // RGBA values as a byte array.
+				color,
 				(uint) res_x,
 				(uint) res_y
 			);
+
 			Console.WriteLine( $"Calculated image width: {image.Width}, height: {image.Height}." );
 
 
@@ -99,9 +101,9 @@ namespace Symage
 			using ( IPixelCollection<byte> pixel_collection = image.GetPixels() )
 			{
 
-				for ( int x = 0; x < length; x++ )
+				for ( int x = 0; x < res_x; x++ )
 				{
-					for ( int y = 0; y < length; y++ )
+					for ( int y = 0; y < res_y; y++ )
 					{
 						IPixel<byte> pixel = pixel_collection.GetPixel(x, y);
 

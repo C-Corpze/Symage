@@ -77,6 +77,17 @@ namespace Symage
 		}
 
 
+		public static float intToFloat( int x )
+		{
+			return BitConverter.Int32BitsToSingle( x );
+		}
+
+		public static float intToFloat( uint x )
+		{
+			return BitConverter.UInt32BitsToSingle( x );
+		}
+
+
 
 	}
 }
