@@ -1,10 +1,4 @@
-﻿using Symage;
-using System;
-using System.Collections.Generic;
-
-
-
-namespace Symage
+﻿namespace Symage
 {
 	// Wahoo, the data object.
 	public class SampleDataObject
@@ -17,69 +11,88 @@ namespace Symage
 
 
 		// Constructor function.
-		public SampleDataObject(uint asize = 10)
+		public SampleDataObject( uint asize = 10 )
 		{
-			byte_array = new byte[asize];
+			byte_array = new byte[ asize ];
 			index = 0;
 		}
 
 
 		// This just initializes an byte array, you must know the size beforehand.
-		public void initArray(uint asize)
+		public void initArray( uint asize )
 		{
-			byte_array = new byte[asize];
+			byte_array = new byte[ asize ];
 			index = 0;
 		}
 
 
 		// This will add one (1) byte into the array, or rather overwrites one.
-		public void addByte(byte b)
+		public void addByte( byte b )
 		{
-			byte_array[index] = b; // Add one byte at a time and move the index.
+			byte_array[ index ] = b; // Add one byte at a time and move the index.
 			index++;
 
 			// Dead-simple measure to prevent ever going outta bounds.
-			if (index >= byte_array.Length) { index = 0; }
+			if ( index >= byte_array.Length ) { index = 0; }
 		}
 
 		// Splits an 16-bit integer into 2 bytes and adds them to the array.
-		public void add16Bit(short num)
+		public void add16Bit( short num )
 		{
-			addByte(BitConv.getByte(num, 1)); // Add the first byte.
-			addByte(BitConv.getByte(num, 0)); // Add the second byte.
+			addByte( BitConv.getByte( num, 1 ) ); // Add the first byte.
+			addByte( BitConv.getByte( num, 0 ) ); // Add the second byte.
 		}
+
+		public void add16Bit( ushort num )
+		{
+			addByte( BitConv.getByte( num, 1 ) ); // Add the first byte.
+			addByte( BitConv.getByte( num, 0 ) ); // Add the second byte.
+		}
+
 
 		// Splits an integer into 4 bytes and adds them to the list.
-		public void add32Bit(int num)
+		public void add32Bit( int num )
 		{
-			addByte(BitConv.getByte(num, 3)); // Add the first byte.
-			addByte(BitConv.getByte(num, 2)); // Add the second byte.
-			addByte(BitConv.getByte(num, 1)); // Add the third byte.
-			addByte(BitConv.getByte(num, 0)); // Add the fourth byte.
+			addByte( BitConv.getByte( num, 3 ) ); // Add the first byte.
+			addByte( BitConv.getByte( num, 2 ) ); // Add the second byte.
+			addByte( BitConv.getByte( num, 1 ) ); // Add the third byte.
+			addByte( BitConv.getByte( num, 0 ) ); // Add the fourth byte.
+		}
+
+		public void add32Bit( uint num )
+		{
+			addByte( BitConv.getByte( num, 3 ) ); // Add the first byte.
+			addByte( BitConv.getByte( num, 2 ) ); // Add the second byte.
+			addByte( BitConv.getByte( num, 1 ) ); // Add the third byte.
+			addByte( BitConv.getByte( num, 0 ) ); // Add the fourth byte.
 		}
 
 
+		// Convenient function that returns a single byte and immediately moves the index over to the next.
+		// Also wraps around itself so you can never go out of bounds.
 		public byte getByte()
 		{
 			byte selected = byte_array[index];
 
 			index++;
-			if (index >= byte_array.Length) index = 0;
+			if ( index >= byte_array.Length ) index = 0; // Never go out of bounds.
 
 			return selected;
 		}
 
 
-		public int getInt16(uint position)
+		public ushort getUInt16( uint position )
 		{
-			return BitConv.makeInt16(
+			return BitConv.makeUInt16(
 				getByte(),
 				getByte()
 			);
 		}
 
 
-		public int getInt32(uint position)
+
+
+		public int getInt32( uint position )
 		{
 			return BitConv.makeInt32(
 				getByte(),
@@ -94,21 +107,21 @@ namespace Symage
 		// This is mostly for debugging and checking values.
 		public void printState()
 		{
-			Console.WriteLine($"Current index: {index}");
+			Console.WriteLine( $"Current index: {index}" );
 
-			for (int i = 0; i < byte_array.Length; i++)
+			for ( int i = 0; i < byte_array.Length; i++ )
 			{
-				if (i < 50 || i > byte_array.Length - 50)
+				if ( i < 50 || i > byte_array.Length - 50 )
 				{
-					Console.WriteLine($"Index: {i} has value: {byte_array[i]}");
+					Console.WriteLine( $"Index: {i} has value: {byte_array[ i ]}" );
 				}
-				else if (i == 50 && byte_array.Length > 50)
+				else if ( i == 50 && byte_array.Length > 50 )
 				{
-					Console.WriteLine("...");
+					Console.WriteLine( "..." );
 				}
 			}
 
-			Console.WriteLine($"Total bytes in array: {byte_array.Length}");
+			Console.WriteLine( $"Total bytes in array: {byte_array.Length}" );
 		}
 
 

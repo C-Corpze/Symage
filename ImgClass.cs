@@ -1,12 +1,4 @@
 ﻿using ImageMagick;
-using NAudio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Symage
 {
@@ -14,7 +6,7 @@ namespace Symage
 	{
 
 		// Decode a image (with alpha channel) into a data object.
-		public static SampleDataObject bitClap32Bit(MagickImage image)
+		public static SampleDataObject bitClap32Bit( MagickImage image )
 		{
 			// Initialize the data object to hold the image's data.
 			SampleDataObject dat_object = new SampleDataObject(image.Width * image.Height * 4);
@@ -25,17 +17,17 @@ namespace Symage
 
 
 			// Iterate through pixel collection.
-			for (int x = 0; x < image.Width; x++)
+			for ( int x = 0; x < image.Width; x++ )
 			{
-				for (int y = 0; y < image.Height; y++)
+				for ( int y = 0; y < image.Height; y++ )
 				{
 					// Read every single pixel and add it's pixel bytes to the data object.
 					IPixel<byte> pixel = pixel_collection.GetPixel(x, y);
 
-					dat_object.addByte(pixel.GetChannel(0)); // R
-					dat_object.addByte(pixel.GetChannel(1)); // G
-					dat_object.addByte(pixel.GetChannel(2)); // B
-					dat_object.addByte(pixel.GetChannel(3)); // A
+					dat_object.addByte( pixel.GetChannel( 0 ) ); // R
+					dat_object.addByte( pixel.GetChannel( 1 ) ); // G
+					dat_object.addByte( pixel.GetChannel( 2 ) ); // B
+					dat_object.addByte( pixel.GetChannel( 3 ) ); // A
 				}
 			}
 
@@ -47,7 +39,7 @@ namespace Symage
 
 
 		// Decode a image (without alpha channel) into a data object.
-		public static SampleDataObject bitClap24Bit(MagickImage image)
+		public static SampleDataObject bitClap24Bit( MagickImage image )
 		{
 			// Initialize the data object to hold the image's data.
 			SampleDataObject dat_object = new SampleDataObject(image.Width * image.Height * 3);
@@ -58,16 +50,16 @@ namespace Symage
 
 
 			// Iterate through pixel collection.
-			for (int x = 0; x < image.Width; x++)
+			for ( int x = 0; x < image.Width; x++ )
 			{
-				for (int y = 0; y < image.Height; y++)
+				for ( int y = 0; y < image.Height; y++ )
 				{
 					// Read every single pixel and add it's pixel bytes to the data object.
 					IPixel<byte> pixel = pixel_collection.GetPixel(x, y);
 
-					dat_object.addByte(pixel.GetChannel(0)); // R
-					dat_object.addByte(pixel.GetChannel(1)); // G
-					dat_object.addByte(pixel.GetChannel(2)); // B
+					dat_object.addByte( pixel.GetChannel( 0 ) ); // R
+					dat_object.addByte( pixel.GetChannel( 1 ) ); // G
+					dat_object.addByte( pixel.GetChannel( 2 ) ); // B
 				}
 			}
 
@@ -79,7 +71,7 @@ namespace Symage
 
 
 		// Encodes a image, receives a DatObject as input.
-		public static void bitCirc24Bit(SampleDataObject dat_object, string file_path, int res_y = 512)
+		public static void bitCirc24Bit( SampleDataObject dat_object, string file_path, int res_y = 512 )
 		{
 			int length = dat_object.byte_array.Length; // Length of the byte array.
 
@@ -100,31 +92,31 @@ namespace Symage
 				(uint) res_x,
 				(uint) res_y
 			);
-			Console.WriteLine($"Calculated image width: {image.Width}, height: {image.Height}.");
+			Console.WriteLine( $"Calculated image width: {image.Width}, height: {image.Height}." );
 
 
 
-			using (IPixelCollection<byte> pixel_collection = image.GetPixels())
+			using ( IPixelCollection<byte> pixel_collection = image.GetPixels() )
 			{
 
-				for (int x = 0; x < length; x++)
+				for ( int x = 0; x < length; x++ )
 				{
-					for (int y = 0; y < length; y++)
+					for ( int y = 0; y < length; y++ )
 					{
 						IPixel<byte> pixel = pixel_collection.GetPixel(x, y);
 
-						pixel.SetChannel(0, dat_object.getByte()); // Red.
-						pixel.SetChannel(1, dat_object.getByte()); // Green.
-						pixel.SetChannel(2, dat_object.getByte()); // Blue.
+						pixel.SetChannel( 0, dat_object.getByte() ); // Red.
+						pixel.SetChannel( 1, dat_object.getByte() ); // Green.
+						pixel.SetChannel( 2, dat_object.getByte() ); // Blue.
 					}
 				}
 
-				Console.WriteLine($"Written bytes to pixels.");
+				Console.WriteLine( $"Written bytes to pixels." );
 			}
 
 
-			image.Write(file_path); // Write the image to the specified file path.
-			Console.WriteLine($"Image outputted into {file_path}.");
+			image.Write( file_path ); // Write the image to the specified file path.
+			Console.WriteLine( $"Image outputted into {file_path}." );
 
 		}
 	}
