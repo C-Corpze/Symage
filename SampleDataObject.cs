@@ -25,6 +25,17 @@
 			index = 0;
 		}
 
+		public int length16()
+		{
+			return ( byte_array.Length / 2 ) + ( byte_array.Length % 2 ); // Returns the size of the array in 16-bit integers.
+		}
+
+		public int length32()
+		{
+			return ( byte_array.Length / 4 ) + ( byte_array.Length % 4 ); // Returns the size of the array in 32-bit integers.
+		}
+
+
 
 		// This will add one (1) byte into the array, or rather overwrites one.
 		public void addByte( byte b )
@@ -48,6 +59,7 @@
 			addByte( BitConv.getByte( num, 1 ) ); // Add the first byte.
 			addByte( BitConv.getByte( num, 0 ) ); // Add the second byte.
 		}
+
 
 
 		// Splits an integer into 4 bytes and adds them to the list.
@@ -81,7 +93,7 @@
 		}
 
 
-		public ushort getUInt16( uint position )
+		public ushort getUInt16()
 		{
 			return BitConv.makeUInt16(
 				getByte(),
@@ -90,9 +102,25 @@
 		}
 
 
+		public short getInt16()
+		{
+			return BitConv.makeInt16(
+				getByte(),
+				getByte()
+			);
+		}
 
+		public uint getUInt32()
+		{
+			return BitConv.makeUInt32(
+				getByte(),
+				getByte(),
+				getByte(),
+				getByte()
+			);
+		}
 
-		public int getInt32( uint position )
+		public int getInt32()
 		{
 			return BitConv.makeInt32(
 				getByte(),
@@ -101,6 +129,40 @@
 				getByte()
 			);
 		}
+
+
+		// Bunch or array getters.
+
+		public ushort[] getUInt16Array()
+		{
+			int len = length16();
+			ushort[] arr = new ushort[ len ];
+
+			for ( int i = 0; i < len / 2; i++ )
+			{
+				arr[ i ] = getUInt16();
+			}
+
+			return arr;
+		}
+
+		public short[] getInt16Array()
+		{
+			int len = length16();
+			short[] arr = new short[ len ];
+
+			for ( int i = 0; i < len / 2; i++ )
+			{
+				arr[ i ] = getInt16();
+			}
+
+			return arr;
+		}
+
+
+
+
+
 
 
 

@@ -30,22 +30,29 @@ namespace Symage
 		// Combines bytes into a 32-bit integer, for 24 bit just don't use the last byte. Lmao
 		public static int makeInt32( byte b1, byte b2, byte b3, byte b4 = 0x00 )
 		{
-			return
-					( b1 << 24 ) | ( b2 << 16 ) | ( b3 << 8 ) | b4
-				 ;
+			return (int) (
+				( b1 << 24 ) | ( b2 << 16 ) | ( b3 << 8 ) | b4
+			);
+		}
+
+		public static uint makeUInt32( byte b1, byte b2, byte b3, byte b4 = 0x00 )
+		{
+			return (uint) (
+				( b1 << 24 ) | ( b2 << 16 ) | ( b3 << 8 ) | b4
+			);
 		}
 
 
 
 		// Combine 2 bytes into an 16-bit integer.
-		public static ushort makeUInt16( byte b1, byte b2 )
-		{
-			return (ushort) ( ( b1 << 8 ) | b2 );
-		}
-
 		public static short makeInt16( byte b1, byte b2 )
 		{
 			return (short) ( ( b1 << 8 ) | b2 );
+		}
+
+		public static ushort makeUInt16( byte b1, byte b2 )
+		{
+			return (ushort) ( ( b1 << 8 ) | b2 );
 		}
 
 
