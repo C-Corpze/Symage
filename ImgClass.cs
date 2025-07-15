@@ -70,7 +70,7 @@ namespace Symage
 
 
 
-		// Encodes a image, receives a DatObject as input.
+		// Encodes a image, receives a data object as input.
 		public static void bitCirc24Bit( SampleDataObject dat_object, string file_path, int res_y = 512 )
 		{
 			int length = dat_object.byte_array.Length; // Length of the byte array.
@@ -83,7 +83,7 @@ namespace Symage
 			int remainder = sample_count % res_y;
 
 			// Calculate the width of the image based on the height and the remainder.
-			int res_x = (sample_count + remainder) / res_y;
+			int res_x = ((sample_count + remainder) / res_y) / 3;
 
 
 			MagickColor color = new MagickColor(0, 0, 0); // Black color for the image background.

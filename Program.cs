@@ -6,12 +6,12 @@ using NAudio.Wave;
 namespace Symage;
 
 
-internal class Program
+public static class Program
 {
+	public static string debug_dir = "D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\";
+
 	static void Main( string[] args )
 	{
-		string debug_dir = "D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\";
-
 		// Create dem directories, they probably won't exist yet at the first run.
 		DirMan.createDirInApp( "_images" );
 		DirMan.createDirInApp( "_audio" );
@@ -23,43 +23,24 @@ internal class Program
 		//Console.WriteLine($"You entered: {input}");
 		Console.WriteLine( AppDomain.CurrentDomain.BaseDirectory );
 
+	}
 
 
 
-
-
+	public static void convertImg2Aud()
+	{
 		MagickImage image = new MagickImage(debug_dir + "testimg.webp");
 		Console.WriteLine( $"Image width: {image.Width}, height: {image.Height}" );
 
 		SampleDataObject data_object = ImgClass.bitClap24Bit(image);
 
 
-		using ( WaveFileWriter wave_writer = new WaveFileWriter(
+		WaveFileWriter wave_writer = new WaveFileWriter(
 				debug_dir + "test.wav", // Location and name of file.
 				new WaveFormat( 44100, 32, 1 )
-		) )
-		{
-			wave_writer.Write( data_object.byte_array, 0, data_object.byte_array.Length );
-		}
+		);
 
-
-
-		// Now we convert a audio to an image.
-
-		using ( WaveFileReader wave_reader = new WaveFileReader( debug_dir + "test.wav" ) )
-		{
-			ISampleProvider sample_provider = wave_reader.ToSampleProvider();
-			float[] buffer = new float[wave_reader.Length / 4]; // Buffer for reading samples.
-
-			sample_provider.Read( buffer, 0, buffer.Length );
-
-
-			SampleDataObject audio_data_object = new SampleDataObject( buffer );
-
-			ImgClass.bitCirc24Bit( audio_data_object, debug_dir + "testimg2.webp", 1920 );
-		}
-
-
+		wave_writer.Write( data_object.byte_array, 0, data_object.byte_array.Length );
 	}
 
 }
