@@ -1,46 +1,41 @@
-﻿
-
-using ImageMagick;
-using NAudio.Wave;
+﻿using ImageMagick;
 
 namespace Symage;
 
 
 public static class Program
 {
-    public static string debug_dir = "D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\";
-
-    static void Main( string[] args )
-    {
-        // Create dem directories, they probably won't exist yet at the first run.
-        FileMan.getDirInApp( "_images" );
-        FileMan.getDirInApp( "_audio" );
-        FileMan.getDirInApp( "_output" );
+	public static string debug_dir = "D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\";
 
 
-        Console.WriteLine( "Hit enter to start." );
-        var input = Console.ReadLine();
-        //Console.WriteLine($"You entered: {input}");
-        Console.WriteLine( AppDomain.CurrentDomain.BaseDirectory );
-
-    }
-
-
-
-    public static void convertImg2Aud()
-    {
-        MagickImage image = new MagickImage( debug_dir + "testimg.webp" );
-        Console.WriteLine( $"Image width: {image.Width}, height: {image.Height}" );
-
-        SampleDataObject data_object = ImgClass.bitClap24Bit( image );
+	static void Main( string[] args )
+	{
+		// Create dem directories, they probably won't exist yet at the first run.
+		FileMan.getDirInApp( "_images" );
+		FileMan.getDirInApp( "_audio" );
+		FileMan.getDirInApp( "_output" );
 
 
-        WaveFileWriter wave_writer = new WaveFileWriter(
-                debug_dir + "test.wav", // Location and name of file.
-                new WaveFormat( 44100, 32, 1 )
-        );
+		Console.WriteLine( "Hit enter to start." );
+		var input = Console.ReadLine();
+		//Console.WriteLine($"You entered: {input}");
 
-        wave_writer.Write( data_object.byte_array, 0, data_object.byte_array.Length );
-    }
+		Console.WriteLine( FileMan.base_dir );
+
+
+		// Some testing code.
+		MagickImage image = new MagickImage( debug_dir + "testimg.webp" );
+
+		SampleDataObject dat = ImgClass.bitClap24Bit( image );
+
+		AudClass.encodeWavFloat( debug_dir + "test.wav", dat );
+
+		//ImgClass.bitCirc24Bit( debug_dir + "testimg2.png", dat, 1280 );
+
+	}
+
+
+
+
 
 }
