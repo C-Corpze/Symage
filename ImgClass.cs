@@ -38,6 +38,9 @@ namespace Symage
 
 
 
+
+
+
 		// Decode a image (without alpha channel) into a data object.
 		public static SampleDataObject bitClap24Bit( MagickImage image )
 		{

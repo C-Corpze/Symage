@@ -18,6 +18,7 @@ public static class Program
 
 		Console.WriteLine( "Hit enter to start." );
 		var input = Console.ReadLine();
+
 		//Console.WriteLine($"You entered: {input}");
 
 		Console.WriteLine( FileMan.base_dir );
@@ -33,9 +34,6 @@ public static class Program
 		//ImgClass.bitCirc24Bit( debug_dir + "testimg2.png", dat, 1280 );
 
 	}
-
-
-
 
 
 }

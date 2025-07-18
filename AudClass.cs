@@ -23,7 +23,7 @@ namespace Symage
 
 		public static void encodeWavFloat( string wav_path, SampleDataObject data_object )
 		{
-			
+
 			WaveFileWriter wave_writer = new WaveFileWriter(
 				wav_path, // Location and name of file.
                 new WaveFormat( 44100, 32, 1 )
