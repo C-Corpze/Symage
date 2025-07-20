@@ -160,6 +160,25 @@
 
 
 
+		public float correctFloat( float num )
+		{
+			if ( float.IsNaN( num ) )
+			{
+				return 0.0f;
+			}
+			else if ( float.IsPositiveInfinity( num ) )
+			{
+				return 1.0f;
+			}
+			else if ( float.IsNegativeInfinity( num ) )
+			{
+				return -1.0f;
+			}
+			return num;
+		}
+
+
+
 
 		// This is mostly for debugging and checking values.
 		public void printState()

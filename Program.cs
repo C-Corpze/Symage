@@ -17,7 +17,7 @@ public static class Program
 
 
 		Console.WriteLine( "Hit enter to start." );
-		var input = Console.ReadLine();
+		string? input = Console.ReadLine();
 
 		//Console.WriteLine($"You entered: {input}");
 
@@ -26,12 +26,16 @@ public static class Program
 
 		// Some testing code.
 
-		//Console.WriteLine( $"Encoding image nto audio." );
-		//MagickImage image = new MagickImage( debug_dir + "testimg.webp" );
+		Console.WriteLine( $"Encoding image nto audio." );
+		MagickImage image = new MagickImage( debug_dir + "testimg.webp" );
 
-		//SampleDataObject dat = ImgClass.bitClap24Bit( image );
-		//AudClass.encodeWavFloat( debug_dir + "test.wav", dat );
+		SampleDataObject dat = ImgClass.bitClap24Bit( image );
+		AudClass.encodeWavFloat( debug_dir + "test.wav", dat );
 
+
+
+		Console.WriteLine( "Hit enter to encode audio file back into image." );
+		input = Console.ReadLine();
 
 		Console.WriteLine($"Now encoding audio file back into image.");
 		SampleDataObject aud_dat = AudClass.decodeWavFloat( debug_dir + "test.wav" );
