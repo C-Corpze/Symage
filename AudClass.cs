@@ -24,26 +24,24 @@ namespace Symage
 		public static void encodeWavFloat( string wav_path, SampleDataObject data_object )
 		{
 
+			WaveFormat wav_format = WaveFormat.CreateIeeeFloatWaveFormat(44100, 2);
+
 			WaveFileWriter wave_writer = new WaveFileWriter(
 				wav_path, // Location and name of file.
-                new WaveFormat( 44100, 32, 1 )
+                wav_format // Format the WAV is in.
 			);
 
 
-			//float[] samples = new float[ ArrayMan.lengthFromBytes(data_object.byte_array, 4) ];
+			float[] samples = new float[ ArrayMan.lengthFromBytes(data_object.byte_array, 4) ];
 
-			//for ( int i = 0; i < samples.Length; i++ )
-			//{
-			//	samples[ i ] = data_object.getFloat();
-			//}
+			for ( int i = 0; i < samples.Length; i++ )
+			{
+				samples[ i ] = data_object.getFloat();
+			}
 
 
-			//wave_writer.WriteSamples( samples, 0, samples.Length );
-
-			wave_writer.Write( data_object.byte_array, 0, data_object.byte_array.Length );
-
+			wave_writer.WriteSamples( samples, 0, samples.Length );
 			wave_writer.Flush();
-			//wave_writer.Close();
 
 			Console.WriteLine( $"Wrote sound file in {wav_path}." );
 		}

@@ -25,13 +25,18 @@ public static class Program
 
 
 		// Some testing code.
-		MagickImage image = new MagickImage( debug_dir + "testimg.webp" );
 
-		SampleDataObject dat = ImgClass.bitClap24Bit( image );
+		//Console.WriteLine( $"Encoding image nto audio." );
+		//MagickImage image = new MagickImage( debug_dir + "testimg.webp" );
 
-		AudClass.encodeWavFloat( debug_dir + "test.wav", dat );
+		//SampleDataObject dat = ImgClass.bitClap24Bit( image );
+		//AudClass.encodeWavFloat( debug_dir + "test.wav", dat );
 
-		//ImgClass.bitCirc24Bit( debug_dir + "testimg2.png", dat, 1280 );
+
+		Console.WriteLine($"Now encoding audio file back into image.");
+		SampleDataObject aud_dat = AudClass.decodeWavFloat( debug_dir + "test.wav" );
+
+		ImgClass.bitCirc24Bit( debug_dir + "audio_to_image.png", aud_dat, 1280 );
 
 	}
 
