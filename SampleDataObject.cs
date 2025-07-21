@@ -16,6 +16,14 @@
 			initArray( asize );
 		}
 
+
+		public SampleDataObject( byte[] arr )
+		{
+			index = 0;
+			byte_array = arr;
+		}
+
+
 		// Overloads that make it very easy to initialize a byte array from an existing array.
 		public SampleDataObject( float[] arr )
 		{
@@ -93,10 +101,15 @@
 
 
 
-		// Converts the float to an integer and inserts it into the data object.
+		// Converts the float to an integer and inserts it into the data object, float might be NaN or Infinity.
 		public void addFloat( float num )
 		{
 			add32Bit( BitConverter.SingleToInt32Bits( num ) );
+		}
+
+		public void addCastedFloat( float num )
+		{
+			add32Bit( (int) (num * Int32.MaxValue) );
 		}
 
 
@@ -153,26 +166,31 @@
 		}
 
 
-		public float getFloat()
+		public float getFloat() // Unsafe, can return NaN or Infinity.
 		{
 			return BitConverter.Int32BitsToSingle( getInt32() );
+		}
+
+		public float getCastedFloat()
+		{
+			return ((float) getInt32()) / Int32.MaxValue;
 		}
 
 
 
 		public float correctFloat( float num )
 		{
-			if ( float.IsNaN( num ) )
+			if ( float.IsPositiveInfinity( num ) )
 			{
-				return 0.0f;
-			}
-			else if ( float.IsPositiveInfinity( num ) )
-			{
-				return 1.0f;
+				return Int32.MaxValue;
 			}
 			else if ( float.IsNegativeInfinity( num ) )
 			{
-				return -1.0f;
+				return Int32.MinValue;
+			}
+			else if ( !float.IsNormal(num) )
+			{
+				return 0.0f;
 			}
 			return num;
 		}
