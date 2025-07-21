@@ -59,7 +59,7 @@
 				choice = num;
 			}
 
-			Console.WriteLine($"{choice} was chosen.");
+			Console.WriteLine( $"{choice} was chosen." );
 			return choice;
 		}
 

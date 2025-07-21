@@ -1,4 +1,6 @@
 ﻿using ImageMagick;
+using Symage.audio;
+using Symage.image;
 
 namespace Symage;
 
@@ -29,18 +31,18 @@ public static class Program
 		Console.WriteLine( $"Encoding image nto audio." );
 		MagickImage image = new MagickImage( debug_dir + "testimg.webp" );
 
-		SampleDataObject dat = ImgClass.bitClap24Bit( image );
-		AudClass.encodeWavFloat( debug_dir + "test.wav", dat );
+		SampleDataObject dat = ImageBitClapper24.decodeBitClap24( image );
+		AudioWav16.encodeWavFloat( debug_dir + "test.wav", dat );
 
 
 
 		Console.WriteLine( "Hit enter to encode audio file back into image." );
 		input = Console.ReadLine();
 
-		Console.WriteLine($"Now encoding audio file back into image.");
-		SampleDataObject aud_dat = AudClass.decodeWavFloat( debug_dir + "test.wav" );
+		Console.WriteLine( $"Now encoding audio file back into image." );
+		SampleDataObject aud_dat = AudioWav16.decodeWavFloat( debug_dir + "test.wav" );
 
-		ImgClass.bitCirc24Bit( debug_dir + "audio_to_image.png", aud_dat, 1280 );
+		ImageBitClapper24.encodeBitCirc24( debug_dir + "audio_to_image.png", aud_dat, 1280 );
 
 	}
 

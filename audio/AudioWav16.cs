@@ -1,8 +1,8 @@
 ﻿using NAudio.Wave;
 
-namespace Symage
+namespace Symage.audio
 {
-	public static class AudClass
+	public static class AudioWav16
 	{
 
 		// 32-bit WAV.
@@ -17,7 +17,7 @@ namespace Symage
 			sample_provider.Read( buffer, 0, buffer.Length );
 
 
-			//ImgClass.bitCirc24Bit( audio_data_object, debug_dir + "testimg2.webp", 1280 );
+			//ImageBitClapper24.encodeBitCirc24( audio_data_object, debug_dir + "testimg2.webp", 1280 );
 
 			return new SampleDataObject( buffer );
 		}
@@ -57,17 +57,17 @@ namespace Symage
 		public static SampleDataObject decodeWavInt16( string wav_path )
 		{
 			WaveFileReader wave_reader = new WaveFileReader( wav_path );
-			
 
-			
+
+
 
 			return new SampleDataObject( buffer );
 		}
 
-		public static void encodeWav16( string wav_path, SampleDataObject data_object )
+		public static void encodeWav16( string wav_path, SampleDataObject data_object, int sample_rate = 44100, int channels = 2 )
 		{
 
-			WaveFormat wav_format = new WaveFormat(44100, 2);
+			WaveFormat wav_format = new WaveFormat(sample_rate, channels);
 
 			WaveFileWriter wave_writer = new WaveFileWriter(
 				wav_path, // Location and name of file.
@@ -87,10 +87,10 @@ namespace Symage
 
 
 
-		
 
 
-		
+
+
 
 
 	}
