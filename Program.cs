@@ -28,11 +28,11 @@ public static class Program
 
 		// Some testing code.
 
-		Console.WriteLine( $"Encoding image nto audio." );
-		MagickImage image = new MagickImage( debug_dir + "testimg.webp" );
+		//Console.WriteLine( $"Encoding image nto audio." );
+		//MagickImage image = new MagickImage( debug_dir + "testimg.webp" );
 
-		SampleDataObject dat = ImageBitClapper24.decodeBitClap24( image );
-		AudioWav16.encodeWavFloat( debug_dir + "test.wav", dat );
+		//SampleDataObject dat = Image24.decodeBytesRGB( image );
+		//AudioWav16.encodeWavBitClap16( debug_dir + "test.wav", dat );
 
 
 
@@ -40,9 +40,9 @@ public static class Program
 		input = Console.ReadLine();
 
 		Console.WriteLine( $"Now encoding audio file back into image." );
-		SampleDataObject aud_dat = AudioWav16.decodeWavFloat( debug_dir + "test.wav" );
+		SampleDataObject aud_dat = AudioWav16.decodeBitCirc16( debug_dir + "test.wav" );
 
-		ImageBitClapper24.encodeBitCirc24( debug_dir + "audio_to_image.png", aud_dat, 1280 );
+		Image24.encodeBytesRGB( debug_dir + "audio_to_image.png", aud_dat, 1280 );
 
 	}
 

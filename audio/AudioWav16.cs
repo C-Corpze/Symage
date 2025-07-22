@@ -5,7 +5,7 @@ namespace Symage.audio
 	public static class AudioWav16
 	{
 
-		public static SampleDataObject decodeWavInt16( string wav_path )
+		public static SampleDataObject decodeBitCirc16( string wav_path )
 		{
 			SampleDataObject audio_data;
 			float[] buffer;
@@ -40,7 +40,7 @@ namespace Symage.audio
 
 
 
-		public static void encodeWav16( string wav_path, SampleDataObject data_object, int sample_rate = 44100, int channels = 2 )
+		public static void encodeWavBitClap16( string wav_path, SampleDataObject data_object, int sample_rate = 44100, int channels = 2 )
 		{
 
 			WaveFormat wav_format = new WaveFormat(sample_rate, channels);
