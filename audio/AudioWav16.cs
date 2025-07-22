@@ -8,22 +8,33 @@ namespace Symage.audio
 		public static SampleDataObject decodeWavInt16( string wav_path )
 		{
 			SampleDataObject audio_data;
-
-
+			float[] buffer;
 			WaveFileReader wave_reader = new WaveFileReader( wav_path );
 
-			if ( wave_reader.WaveFormat.BitsPerSample == 16 )
+
+			if ( wave_reader.WaveFormat.BitsPerSample == 16 && wave_reader.WaveFormat.Encoding == WaveFormatEncoding.Pcm )
 			{
-				byte[] buffer = new byte[ wave_reader.Length ]; // Buffer for reading samples.
-				wave_reader.Read( buffer, 0, buffer.Length );
-			}
-			else
-			{ 
-				ISampleProvider sample_provider = wave_reader.ToSampleProvider();
+				Console.WriteLine( "Audio was detected to be 16-bit PCM.\n" );
+
+				byte[] byte_buffer = new byte[ wave_reader.Length ]; // Buffer for reading samples.
+				wave_reader.Read( byte_buffer, 0, byte_buffer.Length );
+
+				audio_data = new SampleDataObject( byte_buffer );
+
+				return audio_data;
 			}
 
 
-			return new audio_data;
+			Console.WriteLine( "Audio is not 16-bit PCM, will interpret as 32-bit float and attempt to convert to 16-bit.\n" );
+
+			ISampleProvider sample_provider = wave_reader.ToSampleProvider();
+			buffer = new float[ wave_reader.Length / 4 ];
+
+			sample_provider.Read( buffer, 0, buffer.Length );
+			audio_data = new SampleDataObject( buffer );
+
+
+			return audio_data;
 		}
 
 

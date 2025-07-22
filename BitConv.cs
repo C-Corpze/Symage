@@ -114,6 +114,37 @@ namespace Symage
 		}
 
 
+		// Misc.
+
+		public static short castNormalizedFloatToInt16( float num )
+		{
+			return (short) ( num * short.MaxValue );
+		}
+
+		public static float castInt16ToNormalizedFloat( short num )
+		{
+			return ( (float) num ) / short.MaxValue;
+		}
+
+
+
+
+		public static float correctFloat( float num )
+		{
+			if ( float.IsPositiveInfinity( num ) )
+			{
+				return Int32.MaxValue;
+			}
+			else if ( float.IsNegativeInfinity( num ) )
+			{
+				return Int32.MinValue;
+			}
+			else if ( !float.IsNormal( num ) )
+			{
+				return 0.0f;
+			}
+			return num;
+		}
 
 	}
 }

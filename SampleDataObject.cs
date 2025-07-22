@@ -25,15 +25,42 @@
 
 
 		// Overloads that make it very easy to initialize a byte array from an existing array.
-		public SampleDataObject( float[] arr )
+		public SampleDataObject( float[] arr, int float_mode = 0 )
 		{
-			uint len = (uint) lengthOfInBytes( arr );
-			initArray( len );
-
-			for ( uint i = 0; i < arr.Length; i++ )
+			switch ( float_mode )
 			{
-				addFloat( arr[ i ] );
+				case 0: // Normal float, can be NaN or Infinity.
+				{
+					uint len = (uint) lengthOfInBytes( arr );
+					initArray( len );
+
+					for ( uint i = 0; i < arr.Length; i++ )
+					{
+						addFloat( arr[ i ] );
+					}
+
+					break;
+				}
+
+				case 1:
+				{
+					uint len = (uint) arr.Length * 2;
+					initArray( len );
+
+					for ( uint i = 0; i < arr.Length; i++ )
+					{
+						addFloatCastedToInt16( arr[ i ] );
+					}
+
+					break;
+				}
+
+				default:
+					throw new ArgumentException( "Invalid float mode specified." );
 			}
+
+
+
 		}
 
 
@@ -107,9 +134,9 @@
 			add32Bit( BitConverter.SingleToInt32Bits( num ) );
 		}
 
-		public void addCastedFloat( float num )
+		public void addFloatCastedToInt16( float num )
 		{
-			add32Bit( (int) (num * Int32.MaxValue) );
+			add16Bit( BitConv.castNormalizedFloatToInt16( num ) );
 		}
 
 
@@ -171,29 +198,14 @@
 			return BitConverter.Int32BitsToSingle( getInt32() );
 		}
 
-		public float getCastedFloat()
+		public float getCastedFloatFromInt16()
 		{
-			return ((float) getInt32()) / Int32.MaxValue;
+			return BitConv.castInt16ToNormalizedFloat( getInt16() );
 		}
 
 
 
-		public float correctFloat( float num )
-		{
-			if ( float.IsPositiveInfinity( num ) )
-			{
-				return Int32.MaxValue;
-			}
-			else if ( float.IsNegativeInfinity( num ) )
-			{
-				return Int32.MinValue;
-			}
-			else if ( !float.IsNormal(num) )
-			{
-				return 0.0f;
-			}
-			return num;
-		}
+
 
 
 
@@ -222,19 +234,3 @@
 
 	}
 }
-
-
-
-
-
-
-// Splits an integer into 3 bytes and adds them to the list.
-// C# however doesn't really have 24-bit numbers so it just discards the 4th byte.
-// (Dunno if I'll use this.)
-//public void add24Bit(int num)
-//{
-//	addByte(BitConv.get_byte(num, 3)); // Add the first byte.
-//	addByte(BitConv.get_byte(num, 2)); // Add the second byte.
-//	addByte(BitConv.get_byte(num, 1)); // Add the third byte.
-//									   // The fourth byte is yeeted lol.
-//}

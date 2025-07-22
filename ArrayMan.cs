@@ -20,5 +20,30 @@
 		}
 
 
+
+		public static float[] normalizeArray( float[] arr )
+		{
+			float peak = 1;
+
+			// First get the peak from the array.
+
+			for ( int i = 0; i < arr.Length; i++ )
+			{
+				if ( float.Abs( arr[ i ] ) > peak )
+					peak = arr[ i ];
+			}
+
+			if ( peak <= 1.0f ) return arr; // Return if peak is unchanged.
+
+
+			for ( int i = 0; i < arr.Length; i++ )
+			{
+				arr[ i ] /= peak; // NoRmAlIzAtIoN!
+			}
+
+			return arr;
+		}
+
+
 	}
 }
