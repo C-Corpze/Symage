@@ -3,6 +3,40 @@
 	public class UserInput
 	{
 
+		// Primitive functions for reading input.
+
+
+		public int getIntFromUser( int default_value = 0 )
+		{
+			string? text = Console.ReadLine();
+			if ( text == null ) return default_value;
+
+			try { return Int32.Parse( text ); }
+			catch
+			{
+				Console.WriteLine( $"Invalid input, defaulting to {default_value}." );
+				return default_value;
+			}
+		}
+
+		public float getFloatFromUser( float default_value = 0.0f )
+		{
+			string? text = Console.ReadLine();
+			if ( text == null ) return default_value;
+
+			try { return float.Parse( text ); }
+			catch
+			{
+				Console.WriteLine( $"Invalid input, defaulting to {default_value}." );
+				return default_value;
+			}
+		}
+
+
+
+
+
+
 		// The sound part.
 
 		public ushort sound_decode_mode = 0;

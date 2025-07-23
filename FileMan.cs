@@ -19,6 +19,12 @@
 
 
 
+		public static string[] getFilesInAppDir( string folder )
+		{
+			return Directory.GetFiles( base_dir + folder );
+		}
+
+
 		public static string[] getFilesInDir( string dir )
 		{
 			string[] files = Directory.GetFiles( dir );
