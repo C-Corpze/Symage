@@ -28,9 +28,13 @@ public static class Program
 
 		while (true)
 		{
-			Console.WriteLine( "\nHit enter to start Symage." );
+			Console.WriteLine( "\nHit enter to start Symage.\n" );
 			string? input = Console.ReadLine();
 
+
+			Console.WriteLine("Select mode:\n\n");
+			Console.WriteLine( "i - Convert images to WAV files.\n" );
+			Console.WriteLine( "a - Convert audio to PNG files.\n" );
 
 
 
@@ -49,7 +53,7 @@ public static class Program
 
 
 		Console.WriteLine( "Hit enter to encode audio file back into image." );
-		input = Console.ReadLine();
+		Console.ReadLine();
 
 		Console.WriteLine( $"Now encoding audio file back into image." );
 		SampleDataObject aud_dat = AudioWav16.decodeBitCirc16( debug_dir + "test.wav" );
