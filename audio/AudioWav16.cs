@@ -55,9 +55,10 @@ namespace Symage.audio
 			Console.WriteLine( $"data_object contains {data_object.byte_array.Length} bytes." );
 			wave_writer.Write( data_object.byte_array, 0, data_object.byte_array.Length );
 
-
+			
 			wave_writer.Flush();
 			wave_writer.Dispose();
+			wave_writer.Close();
 
 			Console.WriteLine( $"Wrote sound file in {wav_path}." );
 		}

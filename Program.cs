@@ -137,7 +137,7 @@ public static class Program
 
 
 
-		string[] files = FileMan.getFilesInAppDir( "_images" );
+		string[] files = FileMan.getFilesInAppDir( "_audio" );
 		if ( files.Length < 1 )
 		{
 			Console.WriteLine( $"No files in directory {FileMan.getDirInApp( "_images" )}." );
