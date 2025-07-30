@@ -1,6 +1,7 @@
 ﻿using ImageMagick;
 using Symage.audio;
 using Symage.image;
+using System.Threading.Channels;
 
 namespace Symage;
 
@@ -34,8 +35,8 @@ public static class Program
 
 
 			Console.WriteLine( "Select mode, type and press enter to select:\n\n" );
-			Console.WriteLine( "i - Convert images to WAV files.\n" );
-			Console.WriteLine( "a - Convert audio to PNG files.\n" );
+			Console.WriteLine( "a - Convert images to WAV files using BitClap.\n" );
+			Console.WriteLine( "i - Convert audio to PNG files using BitCirc.\n" );
 
 
 
@@ -44,7 +45,7 @@ public static class Program
 
 			switch ( input )
 			{
-				case "i":
+				case "a":
 				{
 					Console.WriteLine( "\nYou chose converting images to audio.\n" );
 					Console.WriteLine( $"Place image files (PNG, JPG, WEBP) in    >  {FileMan.getDirInApp( "_images" )}.\n" );
@@ -52,11 +53,11 @@ public static class Program
 					break;
 				}
 
-				case "a":
+				case "i":
 				{
 					Console.WriteLine( "\nYou chose converting audio to images.\n" );
 					Console.WriteLine( $"Place audio files (WAV, MP3, OGG) in    >  {FileMan.getDirInApp( "_audio" )}.\n" );
-					//convertImageToAudio();
+					convertAudioToImage();
 					break;
 				}
 
@@ -72,11 +73,7 @@ public static class Program
 
 		// Some testing code.
 
-		Console.WriteLine( $"Encoding image into audio." );
-		MagickImage image = new MagickImage( debug_dir + "testimg.webp" );
 
-		SampleDataObject dat = Image24.decodeBytesRGB( image );
-		AudioWav16.encodeWavBitClap16( debug_dir + "test.wav", dat );
 
 
 
@@ -91,6 +88,7 @@ public static class Program
 	}
 
 
+
 	public static void convertImageToAudio()
 	{
 		Console.WriteLine( "\nEnter your desired sample rate. \nExample sample rates are:" );
@@ -101,12 +99,66 @@ public static class Program
 
 		int sample_rate = UserInput.getIntFromUser( "\nEnter target sample rate (default: 44100): ", 44100 );
 		int channels = UserInput.getIntFromUser( "Enter number of channels (default: 2 (stereo)): ", 2 );
+
+
+		string[] files = FileMan.getFilesInAppDir( "_images" );
+		if ( files.Length < 1 )
+		{
+			Console.WriteLine( $"No files in directory {FileMan.getDirInApp( "_images" )}." );
+			return;
+		}
+
+
+		for ( uint i = 0; i < files.Length; i++ )
+		{
+			Console.WriteLine( $"\nEncoding {files[ i ]} into audio...\n" );
+			SampleDataObject pixel_data = Image24.decodeBytesRGB( new MagickImage( files[i] ) );
+
+			AudioWav16.encodeWavBitClap16(
+				FileMan.getDirInApp( "_output" ) + $"\\image_{i}.wav",
+				pixel_data, sample_rate, channels
+			);
+
+		}
+
+		Console.WriteLine( $"\nFinished! Hit enter to reset the program.\n" );
+		Console.ReadLine();
 	}
+
+
+
 
 	public static void convertAudioToImage()
 	{
+		Console.WriteLine("\nYou chose converting audio to images. \nIf no Y resolution is specified it \nwill be estimated for each image instead.\n");
+
 		int res_x = UserInput.getIntFromUser( "Enter the X resolution of the image (default: 512): ", 512 );
 		int res_y = UserInput.getIntFromUser( "Enter the Y resolution of the image (default: auto): ", 0 );
+
+
+
+		string[] files = FileMan.getFilesInAppDir( "_images" );
+		if ( files.Length < 1 )
+		{
+			Console.WriteLine( $"No files in directory {FileMan.getDirInApp( "_images" )}." );
+			return;
+		}
+
+
+		for ( uint i = 0; i < files.Length; i++ )
+		{
+			Console.WriteLine( $"\nEncoding {files[ i ]} into image...\n" );
+			SampleDataObject audio_data = AudioWav16.decodeBitCirc16( files[i] );
+
+			Image24.encodeBytesRGB(
+				FileMan.getDirInApp( "_output" ) + $"\\audio_{i}.png",
+				audio_data, res_y, res_x
+			);
+
+		}
+
+		Console.WriteLine( $"\nFinished! Hit enter to reset the program.\n" );
+		Console.ReadLine();
 	}
 
 

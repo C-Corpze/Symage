@@ -5,6 +5,7 @@ namespace Symage.audio
 	public static class AudioWav16
 	{
 
+		// Circumsizes bytes.
 		public static SampleDataObject decodeBitCirc16( string wav_path )
 		{
 			SampleDataObject audio_data;
@@ -39,7 +40,7 @@ namespace Symage.audio
 
 
 
-
+		// Claps bytes together.
 		public static void encodeWavBitClap16( string wav_path, SampleDataObject data_object, int sample_rate = 44100, int channels = 2 )
 		{
 
