@@ -31,7 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="14.6.0" />
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="14.7.0" />
     <PackageReference Include="NAudio" Version="2.2.1" />
   </ItemGroup>
 
