@@ -42,18 +42,9 @@ namespace Symage.image
 
 		// Encodes a image.
 
-		public static void encodeBytesRGB( string file_path, SampleDataObject dat_object, int res_y = 512, int optional_res_x = 0 )
+		public static void encodeBytesRGB( string file_path, SampleDataObject dat_object, int res_y = 512, int res_x = 512 )
 		{
 			int length = dat_object.byte_array.Length; // Length of the byte array.
-
-			// Length of the byte array, rounded up by an increment of 3 bytes.
-			// Necessary to accurately calculate the X resolution.
-			int sample_count = length +  length % 3 ;
-			int remainder = sample_count % res_y; // Get the remainder of the array length divided by the height.
-			int res_x =  ( sample_count + remainder ) / res_y  / 3; // Calculate the width of the image based on the height and the remainder.
-
-
-			if ( optional_res_x != 0 ) res_x = optional_res_x;
 
 
 			MagickColor color = new MagickColor( 0, 0, 0 ); // Black color for the image background.

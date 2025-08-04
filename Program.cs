@@ -1,7 +1,6 @@
 ﻿using ImageMagick;
 using Symage.audio;
 using Symage.image;
-using System.Threading.Channels;
 
 namespace Symage;
 
@@ -111,7 +110,7 @@ public static class Program
 
 		for ( uint i = 0; i < files.Length; i++ )
 		{
-			Console.WriteLine( $"\nEncoding {files[ i ]} into audio...\n" );
+			Console.WriteLine( $"\nEncoding {files[ i ]} - ({i + 1} / {files.Length}) into audio...\n" );
 			SampleDataObject pixel_data = Image24.decodeBytesRGB( new MagickImage( files[i] ) );
 
 			AudioWav16.encodeWavBitClap16(
@@ -130,10 +129,10 @@ public static class Program
 
 	public static void convertAudioToImage()
 	{
-		Console.WriteLine("\nYou chose converting audio to images. \nIf no Y resolution is specified it \nwill be estimated for each image instead.\n");
+		Console.WriteLine( "\nYou chose converting audio to images. \nIf no Y resolution is specified it \nwill be estimated for each image instead.\n" );
 
 		int res_x = UserInput.getIntFromUser( "Enter the X resolution of the image (default: 512): ", 512 );
-		int res_y = UserInput.getIntFromUser( "Enter the Y resolution of the image (default: auto): ", 0 );
+		int res_y = UserInput.getIntFromUser( "Enter the Y resolution of the image (default: 512): ", 512 );
 
 
 
@@ -147,7 +146,7 @@ public static class Program
 
 		for ( uint i = 0; i < files.Length; i++ )
 		{
-			Console.WriteLine( $"\nEncoding {files[ i ]} into image...\n" );
+			Console.WriteLine( $"\nEncoding {files[ i ]} - ({i + 1} / {files.Length}) into image...\n" );
 			SampleDataObject audio_data = AudioWav16.decodeBitCirc16( files[i] );
 
 			Image24.encodeBytesRGB(
