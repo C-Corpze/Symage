@@ -7,9 +7,7 @@ namespace Symage;
 
 public static class Program
 {
-	public static string debug_dir = "D:\\_ASSETS\\_MyPrograms\\Symage\\Symage\\";
-
-
+	
 	static void Main( string[] args )
 	{
 		// Create dem directories, they probably won't exist yet at the first run.
@@ -70,19 +68,6 @@ public static class Program
 		}
 
 
-		// Some testing code.
-
-
-
-
-
-		Console.WriteLine( "Hit enter to encode audio file back into image." );
-		Console.ReadLine();
-
-		Console.WriteLine( $"Now encoding audio file back into image." );
-		SampleDataObject aud_dat = AudioWav16.decodeBitCirc16( debug_dir + "test.wav" );
-
-		Image24.encodeBytesRGB( debug_dir + "audio_to_image.png", aud_dat, 256 * 2 );
 
 	}
 
