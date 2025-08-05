@@ -7,7 +7,7 @@ namespace Symage;
 
 public static class Program
 {
-	
+
 	static void Main( string[] args )
 	{
 		// Create dem directories, they probably won't exist yet at the first run.

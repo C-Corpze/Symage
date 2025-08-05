@@ -11,7 +11,7 @@
     <Copyright>Copyright - Maxym Kroon</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PublishTrimmed>True</PublishTrimmed>
-    <SignAssembly>False</SignAssembly>
+    <SignAssembly>True</SignAssembly>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -44,12 +44,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-    </None>
-    <None Update="test.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testimg.webp">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
