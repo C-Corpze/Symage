@@ -27,13 +27,13 @@ public static class Program
 
 
 
-			Console.WriteLine( "\nHit enter to start Symage.\n" );
+			Console.WriteLine( "\nHit enter to start Symage." );
 			string? input = Console.ReadLine();
 
 
-			Console.WriteLine( "Select mode, type and press enter to select:\n\n" );
-			Console.WriteLine( "a - Convert images to WAV files using BitClap.\n" );
-			Console.WriteLine( "i - Convert audio to PNG files using BitCirc.\n" );
+			Console.WriteLine( "\nSelect mode, type and press enter to select:\n\n" );
+			Console.WriteLine( "\na - Convert images to WAV files using BitClap." );
+			Console.WriteLine( "\ni - Convert audio to PNG files using BitCirc." );
 
 
 
@@ -45,7 +45,7 @@ public static class Program
 				case "a":
 				{
 					Console.WriteLine( "\nYou chose converting images to audio.\n" );
-					Console.WriteLine( $"Place image files (PNG, JPG, WEBP) in    >  {FileMan.getDirInApp( "_images" )}.\n" );
+					Console.WriteLine( $"\nPlace image files (PNG, JPG, WEBP) in    >  {FileMan.getDirInApp( "_images" )}.\n" );
 					convertImageToAudio();
 					break;
 				}
@@ -53,7 +53,7 @@ public static class Program
 				case "i":
 				{
 					Console.WriteLine( "\nYou chose converting audio to images.\n" );
-					Console.WriteLine( $"Place audio files (WAV, MP3, OGG) in    >  {FileMan.getDirInApp( "_audio" )}.\n" );
+					Console.WriteLine( $"\nPlace audio files (WAV, MP3) in    >  {FileMan.getDirInApp( "_audio" )}.\n" );
 					convertAudioToImage();
 					break;
 				}
@@ -65,6 +65,10 @@ public static class Program
 				}
 
 			}
+
+			Console.WriteLine( $"\n>> Hit enter to reset the program. <<\n" );
+			Console.ReadLine();
+			Console.Clear();
 		}
 
 
@@ -88,7 +92,7 @@ public static class Program
 		string[] files = FileMan.getFilesInAppDir( "_images" );
 		if ( files.Length < 1 )
 		{
-			Console.WriteLine( $"No files in directory {FileMan.getDirInApp( "_images" )}." );
+			Console.WriteLine( $"\nNo files in directory {FileMan.getDirInApp( "_images" )}." );
 			return;
 		}
 
@@ -105,8 +109,6 @@ public static class Program
 
 		}
 
-		Console.WriteLine( $"\nFinished! Hit enter to reset the program.\n" );
-		Console.ReadLine();
 	}
 
 
@@ -124,7 +126,7 @@ public static class Program
 		string[] files = FileMan.getFilesInAppDir( "_audio" );
 		if ( files.Length < 1 )
 		{
-			Console.WriteLine( $"No files in directory {FileMan.getDirInApp( "_images" )}." );
+			Console.WriteLine( $"\nNo files in directory {FileMan.getDirInApp( "_images" )}." );
 			return;
 		}
 
@@ -140,9 +142,6 @@ public static class Program
 			);
 
 		}
-
-		Console.WriteLine( $"\nFinished! Hit enter to reset the program.\n" );
-		Console.ReadLine();
 	}
 
 
