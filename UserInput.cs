@@ -17,10 +17,11 @@ public static class UserInput
 		try { return Int32.Parse( text ); }
 		catch
 		{
-			Console.WriteLine( $"\nInvalid or no input, defaulting to {default_value}." );
+			Console.WriteLine( $"\nNo valid input given, defaulting to {default_value}." );
 			return default_value;
 		}
 	}
+
 
 
 	public static float getFloatFromUser( string text_message, float default_value = 0.0f )
@@ -33,7 +34,7 @@ public static class UserInput
 		try { return float.Parse( text ); }
 		catch
 		{
-			Console.WriteLine( $"\nInvalid or no input, defaulting to {default_value}." );
+			Console.WriteLine( $"\nNo valid input given, defaulting to {default_value}." );
 			return default_value;
 		}
 	}

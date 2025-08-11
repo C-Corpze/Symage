@@ -9,6 +9,10 @@ public class SampleDataObject
 	public byte[] byte_array = new byte[ 1 ];
 	public int index = 0;
 
+	public uint went_out_of_bounds = 0;
+
+	//public string file_name = "file";
+
 
 	// Constructor function.
 	public SampleDataObject( uint asize )
@@ -149,7 +153,14 @@ public class SampleDataObject
 		byte selected = byte_array[ index ];
 
 		index++;
-		if ( index >= byte_array.Length ) index = 0; // Never go out of bounds.
+		if ( index >= byte_array.Length )
+		{
+			went_out_of_bounds++;
+			Console.WriteLine( $"\nArray went out of bounds ({index}), pointer is set back to 0." );
+			Console.WriteLine( $"Went out of bounds {went_out_of_bounds} times.\n" );
+			index = 0;
+		}
+		; // Never go out of bounds.
 
 		return selected;
 	}

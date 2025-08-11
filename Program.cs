@@ -32,8 +32,8 @@ public static class Program
 
 
 			Console.WriteLine( "\nSelect mode, type and press enter to select:\n\n" );
-			Console.WriteLine( "\na - Convert images to WAV files using BitClap." );
-			Console.WriteLine( "\ni - Convert audio to PNG files using BitCirc." );
+			Console.WriteLine( "\n1 - Convert images to WAV files using BitClap." );
+			Console.WriteLine( "\n2 - Convert audio to PNG files using BitCirc." );
 
 
 
@@ -42,7 +42,7 @@ public static class Program
 
 			switch ( input )
 			{
-				case "a":
+				case "1":
 				{
 					Console.WriteLine( "\nYou chose converting images to audio.\n" );
 					Console.WriteLine( $"\nPlace image files (PNG, JPG, WEBP) in    >  {FileMan.getDirInApp( "_images" )}.\n" );
@@ -50,7 +50,7 @@ public static class Program
 					break;
 				}
 
-				case "i":
+				case "2":
 				{
 					Console.WriteLine( "\nYou chose converting audio to images.\n" );
 					Console.WriteLine( $"\nPlace audio files (WAV, MP3) in    >  {FileMan.getDirInApp( "_audio" )}.\n" );
@@ -89,6 +89,7 @@ public static class Program
 		int channels = UserInput.getIntFromUser( "Enter number of channels (default: 2 (stereo)): ", 2 );
 
 
+
 		string[] files = FileMan.getFilesInAppDir( "_images" );
 		if ( files.Length < 1 )
 		{
@@ -100,10 +101,15 @@ public static class Program
 		for ( uint i = 0; i < files.Length; i++ )
 		{
 			Console.WriteLine( $"\nEncoding {files[ i ]} - ({i + 1} / {files.Length}) into audio...\n" );
+
+			// Decoding.
 			SampleDataObject pixel_data = Image24.decodeBytesRGB( new MagickImage( files[i] ) );
 
+			string file_name = FileMan.getFileName( files[i] ) + ".wav";
+
+			// Re-encoding but different format.
 			AudioWav16.encodeWavBitClap16(
-				FileMan.getDirInApp( "_output" ) + $"\\image_{i}.wav",
+				FileMan.getDirInApp( "_output" ) + $"\\{file_name}",
 				pixel_data, sample_rate, channels
 			);
 
@@ -134,10 +140,15 @@ public static class Program
 		for ( uint i = 0; i < files.Length; i++ )
 		{
 			Console.WriteLine( $"\nEncoding {files[ i ]} - ({i + 1} / {files.Length}) into image...\n" );
+
+			// The decodening.
 			SampleDataObject audio_data = AudioWav16.decodeBitCirc16( files[i] );
 
+			string file_name = FileMan.getFileName( files[i] ) + ".png";
+
+			// The encodening.
 			Image24.encodeBytesRGB(
-				FileMan.getDirInApp( "_output" ) + $"\\audio_{i}.png",
+				FileMan.getDirInApp( "_output" ) + $"\\{file_name}",
 				audio_data, res_y, res_x
 			);
 

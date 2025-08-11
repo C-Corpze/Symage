@@ -34,5 +34,14 @@
 
 
 
+		public static string getFileName( string path )
+		{
+			if ( !File.Exists( path ) ) return string.Empty;
+			string? name = Path.GetFileNameWithoutExtension( path );
+
+			return name ?? string.Empty;
+		}
+
+
 	}
 }
