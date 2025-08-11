@@ -3,8 +3,8 @@
 Wahoo, you found one of my most silliest projects ever.
 Some converter tool for experimental art and sound design.
 
-### For consistent results, ALWAYS use, open/save with 16-bit WAV format.
-### If your audio editing software has export options, ALWAYS set to 16-bit WAV!
+For consistent results, ALWAYS use, open/save with 16-bit WAV format.
+If your audio editing software has export options, ALWAYS set to 16-bit WAV!
 
 ## So what does it do?
 
@@ -22,7 +22,7 @@ The default algorithms are super basic and supposed to be as non-destructive as 
 May add destructive converters later for more interesting sounds or images.
 
 
-## Potential idea for future algorithms:
+## Potential ideas for future algorithms:
 
 - Use Red, Green and Blue channels to generate a sine wave where red is amplitude, green phase and blue stereo position.
 
