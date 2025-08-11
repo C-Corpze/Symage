@@ -100,13 +100,13 @@ public static class Program
 
 		for ( uint i = 0; i < files.Length; i++ )
 		{
+			string file_name = FileMan.getFileName( files[i] ) + ".wav";
 			Console.WriteLine( $"\nEncoding {files[ i ]} - ({i + 1} / {files.Length}) into audio...\n" );
 
 			// Decoding.
 			SampleDataObject pixel_data = Image24.decodeBytesRGB( new MagickImage( files[i] ) );
 
-			string file_name = FileMan.getFileName( files[i] ) + ".wav";
-
+			
 			// Re-encoding but different format.
 			AudioWav16.encodeWavBitClap16(
 				FileMan.getDirInApp( "_output" ) + $"\\{file_name}",
@@ -139,12 +139,13 @@ public static class Program
 
 		for ( uint i = 0; i < files.Length; i++ )
 		{
+			string file_name = FileMan.getFileName( files[i] ) + ".png";
 			Console.WriteLine( $"\nEncoding {files[ i ]} - ({i + 1} / {files.Length}) into image...\n" );
 
 			// The decodening.
 			SampleDataObject audio_data = AudioWav16.decodeBitCirc16( files[i] );
 
-			string file_name = FileMan.getFileName( files[i] ) + ".png";
+			
 
 			// The encodening.
 			Image24.encodeBytesRGB(
