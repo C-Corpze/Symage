@@ -2,7 +2,7 @@
 
 namespace Symage.image;
 
-public static class Image24
+public static class Image8BW
 {
 
 	// Decode a image (without alpha channel) into a data object.
@@ -26,8 +26,6 @@ public static class Image24
 				IPixel<byte> pixel = pixel_collection.GetPixel( x, y );
 
 				dat_object.addByte( pixel.GetChannel( 0 ) ); // R
-				dat_object.addByte( pixel.GetChannel( 1 ) ); // G
-				dat_object.addByte( pixel.GetChannel( 2 ) ); // B
 			}
 		}
 
@@ -69,9 +67,11 @@ public static class Image24
 				{
 					IPixel<byte> pixel = pixel_collection.GetPixel( x, y );
 
-					pixel.SetChannel( 0, dat_object.getByte() ); // Red.
-					pixel.SetChannel( 1, dat_object.getByte() ); // Green.
-					pixel.SetChannel( 2, dat_object.getByte() ); // Blue.
+					byte val = dat_object.getByte();
+
+					pixel.SetChannel( 0, val ); // Red.
+					pixel.SetChannel( 1, val ); // Green.
+					pixel.SetChannel( 2, val ); // Blue.
 				}
 			}
 

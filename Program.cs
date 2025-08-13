@@ -104,7 +104,7 @@ public static class Program
 			Console.WriteLine( $"\nEncoding {files[ i ]} - ({i + 1} / {files.Length}) into audio...\n" );
 
 			// Decoding.
-			SampleDataObject pixel_data = Image24.decodeBytesRGB( new MagickImage( files[i] ) );
+			SampleDataObject pixel_data = Image24.decodeBytes( new MagickImage( files[i] ) );
 
 			
 			// Re-encoding but different format.
@@ -148,7 +148,7 @@ public static class Program
 			
 
 			// The encodening.
-			Image24.encodeBytesRGB(
+			Image24.encodeBytes(
 				FileMan.getDirInApp( "_output" ) + $"\\{file_name}",
 				audio_data, res_y, res_x
 			);

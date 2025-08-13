@@ -10,7 +10,10 @@
 		{
 			string path = base_dir + dir;
 
-			if ( Directory.Exists( path ) ) return path;
+			if ( Directory.Exists( path ) )
+			{
+				return path;
+			}
 			Directory.CreateDirectory( path );
 
 			Console.WriteLine( $"Created directory: {path}" );

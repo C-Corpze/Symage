@@ -15,7 +15,6 @@ namespace Symage.audio
 			sample_provider.Read( buffer, 0, buffer.Length );
 
 
-			//ImageBitClapper24.encodeBytesRGB( audio_data_object, debug_dir + "testimg2.webp", 1280 );
 
 			return new SampleDataObject( buffer );
 		}
