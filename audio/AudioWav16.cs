@@ -30,7 +30,7 @@ public static class AudioWav16
 		Console.WriteLine( "Audio is not 16-bit PCM, will interpret as 32-bit float and attempt to convert to 16-bit.\n" );
 
 		ISampleProvider sample_provider = wave_reader.ToSampleProvider();
-		buffer = new float[ wave_reader.Length / 4 ];
+		buffer = new float[ wave_reader.Length ];
 
 		sample_provider.Read( buffer, 0, buffer.Length );
 		audio_data = new SampleDataObject( buffer );

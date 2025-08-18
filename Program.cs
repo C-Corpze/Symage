@@ -15,9 +15,10 @@ public static class Program
 		FileMan.getDirInApp( "_audio" );
 		FileMan.getDirInApp( "_output" );
 
+
 		while ( true )
 		{
-			Console.WriteLine( $"\nApp is settled in {FileMan.base_dir}.\n" );
+			Console.WriteLine( $"\nApp is located in {FileMan.base_dir}.\n" );
 			Console.WriteLine( "Symage will automatically batch-process images and sounds placed in \ntheir designated folders.\n" );
 
 			Console.WriteLine( $"Images go in    >  {FileMan.getDirInApp( "_images" )}." );
@@ -46,6 +47,7 @@ public static class Program
 				{
 					Console.WriteLine( "\nYou chose converting images to audio.\n" );
 					Console.WriteLine( $"\nPlace image files (PNG, JPG, WEBP) in    >  {FileMan.getDirInApp( "_images" )}.\n" );
+
 					convertImageToAudio();
 					break;
 				}
@@ -54,6 +56,7 @@ public static class Program
 				{
 					Console.WriteLine( "\nYou chose converting audio to images.\n" );
 					Console.WriteLine( $"\nPlace audio files (WAV, MP3) in    >  {FileMan.getDirInApp( "_audio" )}.\n" );
+
 					convertAudioToImage();
 					break;
 				}
