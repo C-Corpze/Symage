@@ -25,7 +25,13 @@ public static class Image8BW
 				// Read every single pixel and add it's pixel bytes to the data object.
 				IPixel<byte> pixel = pixel_collection.GetPixel( x, y );
 
-				dat_object.addByte( pixel.GetChannel( 0 ) ); // R
+				int val = (
+					pixel.GetChannel( 0 ) +
+					pixel.GetChannel( 1 ) +
+					pixel.GetChannel( 2 )
+					) / 3;
+
+				dat_object.addByte( (byte) val ); // R
 			}
 		}
 
