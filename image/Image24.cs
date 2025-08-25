@@ -16,6 +16,7 @@ public static class Image24
 		IPixelCollection<byte> pixel_collection = image.GetPixels();
 
 
+		Console.WriteLine( $"(RGB) Image width: {image.Width}, height: {image.Height}." );
 
 		// Iterate through pixel collection.
 		for ( int x = 0; x < image.Width; x++ )
@@ -55,7 +56,7 @@ public static class Image24
 				(uint) res_y
 			);
 
-		Console.WriteLine( $"Set image width: {image.Width}, height: {image.Height}." );
+		Console.WriteLine( $"(RGB) Set image width: {image.Width}, height: {image.Height}." );
 
 
 

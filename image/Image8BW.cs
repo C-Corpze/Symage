@@ -10,12 +10,13 @@ public static class Image8BW
 	public static SampleDataObject decodeBytes( MagickImage image )
 	{
 		// Initialize the data object to hold the image's data.
-		SampleDataObject dat_object = new SampleDataObject( image.Width * image.Height * 3 );
+		SampleDataObject dat_object = new SampleDataObject( image.Width * image.Height );
 
 		// Gets all the pixels from the image object.
 		IPixelCollection<byte> pixel_collection = image.GetPixels();
 
 
+		Console.WriteLine( $"(Greyscale) Image width: {image.Width}, height: {image.Height}." );
 
 		// Iterate through pixel collection.
 		for ( int x = 0; x < image.Width; x++ )
@@ -59,7 +60,7 @@ public static class Image8BW
 				(uint) res_y
 			);
 
-		Console.WriteLine( $"Set image width: {image.Width}, height: {image.Height}." );
+		Console.WriteLine( $"(Greyscale) Set image width: {image.Width}, height: {image.Height}." );
 
 
 

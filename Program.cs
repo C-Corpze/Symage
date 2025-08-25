@@ -82,19 +82,41 @@ public static class Program
 
 	public static void convertImageToAudio()
 	{
-		Console.WriteLine( "\nEnter your desired sample rate. \nExample sample rates are:" );
+		// Bruhhh this looks so goofy.
 
-		Console.WriteLine( "\n- 44100 - Typical for CD & DVD audio." );
-		Console.WriteLine( "\n- 48000 - Used for studio recordings & professional sound editing." );
-		Console.WriteLine( "\n- 32000 - Has a maximum (nyquist) frequency of 16khz (basically MP3 quality), \nlonger and lower-pitched WAV file." );
+		Console.WriteLine(
+@"
+Enter your desired sample rate. 
+Example sample rates are:
+
+- 44100 - Typical for CD & DVD audio.
+
+- 48000 - Used for studio recordings & professional sound editing.
+
+- 32000 - Has a maximum (nyquist) frequency of 16khz (basically MP3 quality), longer and lower-pitched WAV file.
+" );
+
 
 		int sample_rate = UserInput.getIntFromUser( "\nEnter target sample rate (default: 44100): ", 44100 );
-		int channels = UserInput.getIntFromUser( "Enter number of channels (default: 2 (stereo)): ", 2 );
+		int channels = UserInput.getIntFromUser( "\nEnter number of channels (default: 2 (stereo)): ", 2 );
+
+
+		// WHYYYY!? I'm considering going back to multi-line prints.
+
+		Console.WriteLine( @"
+Select an algorithm for decoding the image.
+
+1 - RGB (Alpha is ignored.)
+
+2 - Grayscale (Average value of RGB channels, Alpha is ignored.)
+" );
+
+		int conversion_method = UserInput.getIntFromUser( "\nAlgorithm: ", 1 );
 
 
 
 		string[] files = FileMan.getFilesInAppDir( "_images" );
-		if ( files.Length < 1 )
+		if ( files.Length < 1 ) // Just checking if there are any files at all.
 		{
 			Console.WriteLine( $"\nNo files in directory {FileMan.getDirInApp( "_images" )}." );
 			return;
@@ -103,17 +125,28 @@ public static class Program
 
 		for ( uint i = 0; i < files.Length; i++ )
 		{
-			string file_name = FileMan.getFileName( files[i] ) + ".wav";
+			string file_name = FileMan.getFileName( files[i] ) + ".wav"; // The new file name + extension.
 			Console.WriteLine( $"\nEncoding {files[ i ]} - ({i + 1} / {files.Length}) into audio...\n" );
 
 			// Decoding.
-			SampleDataObject pixel_data = Image24.decodeBytes( new MagickImage( files[i] ) );
+			SampleDataObject pixel_data;
 
-			
+			switch ( conversion_method )
+			{
+				case 2: // Greyscale image.
+					pixel_data = Image8BW.decodeBytes( new MagickImage( files[ i ] ) );
+					break;
+				default: // RGB image.
+					pixel_data = Image24.decodeBytes( new MagickImage( files[ i ] ) );
+					break;
+			}
+
+
 			// Re-encoding but different format.
 			AudioWav16.encodeWavBitClap16(
 				FileMan.getDirInApp( "_output" ) + $"\\{file_name}",
-				pixel_data, sample_rate, channels
+				pixel_data,
+				sample_rate, channels
 			);
 
 		}
@@ -129,6 +162,17 @@ public static class Program
 
 		int res_x = UserInput.getIntFromUser( "Enter the X resolution of the image (default: 512): ", 512 );
 		int res_y = UserInput.getIntFromUser( "Enter the Y resolution of the image (default: 512): ", 512 );
+
+
+		Console.WriteLine( @"
+Select an algorithm for encoding the image.
+
+1 - RGB (No alpha is added.)
+
+2 - Grayscale (R, G and B will all be the same value.)
+" );
+
+		int conversion_method = UserInput.getIntFromUser( "\nAlgorithm: ", 1 );
 
 
 
@@ -148,13 +192,25 @@ public static class Program
 			// The decodening.
 			SampleDataObject audio_data = AudioWav16.decodeBitCirc16( files[i] );
 
-			
+
 
 			// The encodening.
-			Image24.encodeBytes(
-				FileMan.getDirInApp( "_output" ) + $"\\{file_name}",
-				audio_data, res_y, res_x
-			);
+			switch ( conversion_method )
+			{
+				case 2:
+					Image8BW.encodeBytes(
+						FileMan.getDirInApp( "_output" ) + $"\\{file_name}",
+						audio_data, res_y, res_x
+					);
+					break;
+				default:
+					Image24.encodeBytes(
+						FileMan.getDirInApp( "_output" ) + $"\\{file_name}",
+						audio_data, res_y, res_x
+					);
+					break;
+			}
+
 
 		}
 	}
