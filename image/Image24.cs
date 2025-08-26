@@ -16,7 +16,7 @@ public static class Image24
 		IPixelCollection<byte> pixel_collection = image.GetPixels();
 
 
-		Console.WriteLine( $"(RGB) Image width: {image.Width}, height: {image.Height}." );
+		Console.WriteLine( $"\n(RGB) Image width: {image.Width}, height: {image.Height}.\n" );
 
 		// Iterate through pixel collection.
 		for ( int x = 0; x < image.Width; x++ )
@@ -56,7 +56,7 @@ public static class Image24
 				(uint) res_y
 			);
 
-		Console.WriteLine( $"(RGB) Set image width: {image.Width}, height: {image.Height}." );
+		Console.WriteLine( $"\n(RGB) Set image width: {image.Width}, height: {image.Height}.\n" );
 
 
 
@@ -76,12 +76,12 @@ public static class Image24
 				}
 			}
 
-			Console.WriteLine( $"Written bytes to pixels." );
+			Console.WriteLine( $"\nWritten bytes to pixels.\n" );
 		}
 
 
 		image.Write( file_path ); // Write the image to the specified file path.
-		Console.WriteLine( $"Image outputted into {file_path}." );
+		Console.WriteLine( $"\nImage outputted into {file_path}.\n" );
 	}
 
 }

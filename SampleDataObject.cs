@@ -90,10 +90,7 @@ public class SampleDataObject
 	public void addByte( byte b )
 	{
 		byte_array[ index ] = b; // Add one byte at a time and move the index.
-		index++;
-
-		// Dead-simple measure to prevent ever going outta bounds.
-		if ( index >= byte_array.Length ) { index = 0; }
+		if ( index < byte_array.Length ) index++;
 	}
 
 
@@ -148,19 +145,29 @@ public class SampleDataObject
 
 	// Convenient function that returns a single byte and immediately moves the index over to the next.
 	// Also wraps around itself so you can never go out of bounds.
-	public byte getByte()
+	public byte getByte( bool wrap = false )
 	{
 		byte selected = byte_array[ index ];
 
-		index++;
-		if ( index >= byte_array.Length )
+		if ( wrap )
 		{
-			went_out_of_bounds++;
-			Console.WriteLine( $"\nArray went out of bounds ({index}), pointer is set back to 0." );
-			Console.WriteLine( $"Went out of bounds {went_out_of_bounds} times.\n" );
-			index = 0;
+			index++;
+
+			if ( index >= byte_array.Length )
+			{
+				went_out_of_bounds++;
+				Console.WriteLine( $"\nArray went out of bounds ({index}), pointer is set back to 0." );
+				Console.WriteLine( $"Went out of bounds {went_out_of_bounds} times.\n" );
+				index = 0;
+			}
+			; // Never go out of bounds.
+
+			return selected;
 		}
-		; // Never go out of bounds.
+		else if ( !wrap && index < byte_array.Length ) 
+		{
+			index++; 
+		}
 
 		return selected;
 	}

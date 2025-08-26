@@ -16,7 +16,7 @@ public static class Image8BW
 		IPixelCollection<byte> pixel_collection = image.GetPixels();
 
 
-		Console.WriteLine( $"(Greyscale) Image width: {image.Width}, height: {image.Height}." );
+		Console.WriteLine( $"\n(Greyscale) Image width: {image.Width}, height: {image.Height}.\n" );
 
 		// Iterate through pixel collection.
 		for ( int x = 0; x < image.Width; x++ )
@@ -26,7 +26,7 @@ public static class Image8BW
 				// Read every single pixel and add it's pixel bytes to the data object.
 				IPixel<byte> pixel = pixel_collection.GetPixel( x, y );
 
-				int val = (
+				float val = (
 					pixel.GetChannel( 0 ) +
 					pixel.GetChannel( 1 ) +
 					pixel.GetChannel( 2 )
@@ -35,6 +35,7 @@ public static class Image8BW
 				dat_object.addByte( (byte) val ); // R
 			}
 		}
+
 
 		dat_object.printState();
 
@@ -60,7 +61,7 @@ public static class Image8BW
 				(uint) res_y
 			);
 
-		Console.WriteLine( $"(Greyscale) Set image width: {image.Width}, height: {image.Height}." );
+		Console.WriteLine( $"\n(Greyscale) Set image width: {image.Width}, height: {image.Height}.\n" );
 
 
 
@@ -82,12 +83,12 @@ public static class Image8BW
 				}
 			}
 
-			Console.WriteLine( $"Written bytes to pixels." );
+			Console.WriteLine( $"\nWritten bytes to pixels.\n" );
 		}
 
 
 		image.Write( file_path ); // Write the image to the specified file path.
-		Console.WriteLine( $"Image outputted into {file_path}." );
+		Console.WriteLine( $"\nImage outputted into {file_path}.\n" );
 	}
 
 }

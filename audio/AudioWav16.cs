@@ -16,7 +16,7 @@ public static class AudioWav16
 
 		if ( wave_reader.WaveFormat.BitsPerSample == 16 && wave_reader.WaveFormat.Encoding == WaveFormatEncoding.Pcm )
 		{
-			Console.WriteLine( "Audio was detected to be 16-bit PCM.\n" );
+			Console.WriteLine( "\nAudio was detected to be 16-bit PCM.\n" );
 
 			byte[] byte_buffer = new byte[ wave_reader.Length ]; // Buffer for reading samples.
 			wave_reader.Read( byte_buffer, 0, byte_buffer.Length );
@@ -27,7 +27,7 @@ public static class AudioWav16
 		}
 
 
-		Console.WriteLine( "Audio is not 16-bit PCM, will interpret as 32-bit float and attempt to convert to 16-bit.\n" );
+		Console.WriteLine( "\nAudio is not 16-bit PCM, will interpret as 32-bit float and attempt to convert to 16-bit.\n" );
 
 		ISampleProvider sample_provider = wave_reader.ToSampleProvider();
 		buffer = new float[ wave_reader.Length ];
