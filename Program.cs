@@ -55,7 +55,7 @@ public static class Program
 				case "2":
 				{
 					Console.WriteLine( "\nYou chose converting audio to images.\n" );
-					Console.WriteLine( $"\nPlace audio files (WAV, MP3) in    >  {FileMan.getDirInApp( "_audio" )}.\n" );
+					Console.WriteLine( $"\nPlace audio files (WAV) in    >  {FileMan.getDirInApp( "_audio" )}.\n" );
 
 					convertAudioToImage();
 					break;
