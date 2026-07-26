@@ -6,6 +6,11 @@ Some converter tool for experimental art and sound design.
 For consistent results, ALWAYS use, open/save with 16-bit WAV format.
 If your audio editing software has export options, ALWAYS set to 16-bit WAV!
 
+## Anti-virus warning
+
+I didn't sign the executable, Windows will probably report it as a malicious file.
+If you don't trust it you can run in a virtual machine or just inspect and compile the code yourself.
+
 ## So what does it do?
 
 Real simple stuff, you place audio files in `_audio` or images in `_images`.
