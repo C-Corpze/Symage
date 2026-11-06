@@ -64,3 +64,6 @@ To set it up you needed Node.JS, had to install packages and needed to know how 
 
 I'm just including this in the README of Symage as sort of history bit.
 The repo for it is likely deleted or private because Symage does everything better and replaces it entirely.
+
+
+Project created around:  02/07/2025 (Oldest date I could find.)
